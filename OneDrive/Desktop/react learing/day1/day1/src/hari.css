@@ -1,0 +1,72 @@
+:root {
+    --primary-color: #003366; /* Dark Blue - Trust and Professionalism */
+    --secondary-color: #004080; /* Medium Blue - Stability and Integrity */
+    --accent-color: #b3b3b3; /* Light Gray - Neutral and Balanced */
+    --background-color: #f4f4f4; /* Very Light Gray - Clean and Readable */
+    --text-color: #333333; /* Dark Gray - Easy to Read and Professional */
+    --navbar-background-color:#f0f0f0;
+  }
+  
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--background-color);
+}
+/* //navbar */
+.nav{
+    background-color:var(--navbar-background-color);
+    color: var(--text-color);
+    padding: 30px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    align-items: center;  
+    text-align: center;  
+}
+#companylogo{
+    width: 100px;
+    background-color:var(--navbar-background-color);
+}
+.menu{
+    background-color:var(--navbar-background-color);
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+li a{
+    text-decoration: none;
+    color: var(--text-color);
+}
+@media(max-width:768px){
+    .menu{
+        list-style-type: none;
+        display: block;
+    }
+    li{
+        padding: 5px;
+    }
+}
+@media(max-width:480px){
+    .nav{
+        overflow-x: hidden;
+    }
+    .menu{
+        list-style-type: none;
+    }
+    li{
+        padding: 5px;
+    }
+}
+@media(max-width:232px){
+    .nav{
+        overflow-x: hidden;
+        text-align: center;
+    }
+    .menu{
+        display: none;
+    }
+    li{
+        padding: 5px;
+    }
+}
