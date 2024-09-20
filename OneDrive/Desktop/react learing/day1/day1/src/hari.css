@@ -11,7 +11,30 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* //for dark  */
+.nav.dark{
+    background-color: black;
+    color: white
+    
+}
+
+/* //for light */
+.nav.light{
     background-color: var(--background-color);
+    color: black;
+}
+/* //for dark */
+a.dark{
+    background-color: black;
+    color: white
+    
+}
+/* //for light */
+a.light{
+    background-color: var(--background-color);
+    color: black;
 }
 /* //navbar */
 .nav{
@@ -23,12 +46,8 @@
     align-items: center;  
     text-align: center;  
 }
-#companylogo{
-    width: 100px;
-    background-color:var(--navbar-background-color);
-}
+
 .menu{
-    background-color:var(--navbar-background-color);
     list-style-type: none;
     display: flex;
     flex-direction: row;
@@ -37,6 +56,18 @@
 li a{
     text-decoration: none;
     color: var(--text-color);
+}
+#lengthandcharcode h1{
+    display: inline-block;
+    margin: 30px;
+}
+.skyblue{
+    border: 4px solid rgb(3, 3, 3);
+    border-radius: 50% 50%;
+    width: 30px;
+    background-color: skyblue;
+    height: 30px;
+    cursor: pointer;
 }
 @media(max-width:768px){
     .menu{
