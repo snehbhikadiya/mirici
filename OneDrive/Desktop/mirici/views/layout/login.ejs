@@ -1,0 +1,62 @@
+<div id="loginform">
+    <div id="registermodalimg">
+        <img src="/img/register/modal.jpeg" alt="" id="registerimg" />
+      </div>
+      <div id="registerformdata">
+        <div id="close">
+          <i onclick="closebtn()" id="closeebtn" class="fa-solid fa-x"></i>
+        </div>
+        <span
+          style="
+            font-weight: 300;
+            font-size: 28px;
+            font-family: Canela, Georgia, Times, 'Times New Roman', serif;
+            color: rgb(0, 0, 0);
+            margin-left: 30px;
+          "
+          >Login Now</span
+        >
+        <form action="/login" method="post" id="inputform" style="margin: 30px">
+          <input
+            type="email"
+            placeholder="Email"
+            id="email"
+            name="email"
+            style="
+              border: 1px solid black;
+              width: 300px;
+              padding: 10px;
+              margin: 10px;
+            "
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            id="password"
+            name="password"
+            style="
+              border: 1px solid black;
+              width: 300px;
+              padding: 10px;
+              margin: 10px;
+            "
+          />
+          <button
+            type="submit"
+            id="submit"
+            style="
+              border: 1px solid black;
+              width: 300px;
+              padding: 10px;
+              margin: 10px;
+            "
+          >
+            Login
+          </button>
+          <div id="loginandforgetpassword">
+            <a id="registerlink">Register</a>
+            <a id="forgetlink">Forgot Password</a>
+          </div>
+        </form>
+      </div>
+    </div>

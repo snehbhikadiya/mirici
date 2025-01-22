@@ -1,0 +1,144 @@
+/* Default styles (unchanged) */
+#registerform,#loginform,#forgetpasswordform{
+  position: relative;
+  border: 1px solid black;
+  display: none;
+  grid-template-columns: repeat(2, 2fr);
+  height: 500px;
+  background-color: white;
+  width: 800px;
+  z-index: 1;
+}
+#loginform,#forgetpasswordform{
+  position: fixed;
+  top: 17%;
+  left: 24%;
+  transform: translate(-50% -50%);
+}
+
+#registermodalimg{
+  height: 500px;
+  width: 400px;
+  position: absolute;
+  top: 20px;
+}
+#registerimg{
+  margin-top: -22px;
+  height: 500px;
+  width: 400px;
+}
+
+#registerformdata{
+  margin-top: 100px;
+  margin-left: 50%;
+}
+
+#close{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#submit{
+  background-color: black;
+  color: white;
+  font-weight: 300;
+  font-size: 17px;
+  font-family: Canela, Georgia, Times, 'Times New Roman', serif;
+}
+#loginandforgetpassword{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#loginandforgetpassword a{
+  text-decoration: none;
+  color: black;
+}
+#closeebtn{
+  cursor: pointer;
+  margin-top: 5px;
+  margin-right: 10px;
+  font-size: 20px;  
+}
+.dropdown-menu .dropdown-item{
+  background-color: rgb(255, 249, 249);
+}
+
+#registerlink,#loginlink,#forgetlink{
+  cursor: pointer;
+}
+/* Responsive styles */
+@media (max-width: 1200px) {
+  #registerform {
+    width: 90%;
+    height: auto;
+  }
+
+  #registermodalimg, #registerimg {
+    width: 100%;
+    height: auto;
+  }
+
+  #registerformdata {
+    margin-top: 20px;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  #registerform {
+    width: 95%;
+    height: auto;
+    display: block; /* Ensures the form is visible on smaller screens */
+  }
+
+  #registermodalimg {
+    height: auto;
+    width: 100%;
+    position: relative;
+  }
+
+  #registerimg {
+    height: auto;
+    width: 100%;
+    margin-top: 0;
+  }
+
+  #registerformdata {
+    margin-top: 20px;
+    margin-left: 0;
+    text-align: center; /* Center-align text and form elements on small screens */
+  }
+
+  #close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  #submit {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  #registerform {
+    width: 100%;
+    padding: 10px;
+  }
+
+  #registermodalimg {
+    display: none; /* Hide the image on very small screens */
+  }
+
+  #registerformdata {
+    margin-top: 10px;
+    margin-left: 0;
+  }
+
+  #close {
+    top: 5px;
+    right: 5px;
+  }
+}

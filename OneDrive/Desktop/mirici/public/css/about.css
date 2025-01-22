@@ -1,0 +1,115 @@
+    /* Base styles */
+    * {
+        padding: 0;
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    #ourstory, #ourfounder, #whymirici {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        align-items: center;
+        background-color: #fff4e4;
+    }
+
+    #ourstory {
+        background-color: #fff4e4;
+    }
+
+    #ourfounder {
+        background-color: #f5e5cb;
+    }
+
+    #whymirici {
+        background-color: #fff4e4;
+    }
+
+    #ourstoryhading, #ourfounderhading, #whymirici h2 {
+        width: 100%;
+        font-weight: 800;
+        font-size: 25px;
+        padding: 10px 0 20px;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    #ourcontent, #storytext, .founderstory, #storytextfounder {
+        text-transform: capitalize;
+        font-family: Futura, sans-serif;
+        text-align: center;
+        width: 100%;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 28px;
+    }
+
+    #aboutquotes {
+        font-weight: bolder;
+        width: 98%;
+        margin: 20px 1%;
+        font-size: 18px;
+        line-height: 28px;
+    }
+
+    #storytextfounder {
+        text-align: center;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+        #ourstory, #ourfounder, #whymirici {
+            grid-template-columns: 1fr;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+        
+        #ourcontent, .founderstory, #whymirici div {
+            padding: 20px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        #ourstoryhading, #ourfounderhading, #whymirici h2 {
+            font-size: 20px;
+            padding: 5px 0 10px;
+        }
+
+        #aboutquotes, #storytextfounder {
+            font-size: 16px;
+        }
+
+        #ourcontent, #storytext, .founderstory, #storytextfounder {
+            font-size: 12px;
+            line-height: 20px;
+        }
+    }
+
+
+    /* for animation*/
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.slide-in-right {
+    opacity: 0; /* Start hidden */
+    transform: translateX(100%); /* Start off-screen */
+}
+
+.slide-in-right.animate {
+    animation: slideInRight 1s forwards; /* Apply animation when class is added */
+}
+
+

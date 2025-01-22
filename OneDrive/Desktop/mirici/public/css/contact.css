@@ -1,0 +1,125 @@
+*{
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+}
+#contactimg{
+    height: 100%;
+    width: 100%;
+    padding-bottom: 10px;
+}
+#contact{
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+}
+#contactform{
+    margin-left: 5px;
+    background-color: #faf9f6;
+}
+input{
+    width: 49%;
+    height: 40px;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 0.7px solid rgb(179, 175, 175);
+    border-bottom: 0.7px solid rgb(179, 175, 175);
+}
+#jewelry-type{
+    margin-top: 40px;
+    width: 49%;
+}
+label {
+    font-size: 1rem;
+    color: #333;
+  }
+  select {
+    width: 200px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    appearance: none; /* Remove default arrow */
+  }
+  select:focus {
+    border-color: #0066cc;
+    outline: none;
+    box-shadow: 0 0 3px rgba(0, 102, 204, 0.5);
+  }
+  #textarea{
+    width: 100%;
+    height: 200px;
+    margin-top: 40px;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 0.7px solid rgb(179, 175, 175);
+    border-bottom: 0.7px solid rgb(179, 175, 175);
+  }
+  #phonenumber{
+    margin-top: 40px;
+  }
+  #submitbtn{
+    width: 50%;
+    height: 40px;
+    background-color: white;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 0.7px solid rgb(179, 175, 175);
+    border-bottom: 0.7px solid rgb(179, 175, 175);
+  }
+  #submitbtn:hover{
+    background-color: rgb(255, 255, 243);
+  }
+  iframe{
+    margin-top: 40px;
+    width: 100%;
+    height: 600px;
+  }
+
+  /* Responsive design */
+@media (max-width: 768px) {
+    #contact {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    #jewelry-type {
+        width: 100%;
+    }
+
+    #phonenumber {
+        width: 100%;
+    }
+
+    #submitbtn {
+        width: 100%;
+    }
+
+    iframe {
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    #contactform {
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    input {
+        font-size: 0.9rem;
+    }
+
+    #jewelry-type, #phonenumber, #submitbtn {
+        font-size: 0.9rem;
+    }
+
+    #textarea {
+        height: 150px;
+    }
+}

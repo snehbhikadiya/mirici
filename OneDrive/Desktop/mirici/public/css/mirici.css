@@ -1,0 +1,883 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    scroll-behavior: smooth;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* Internet Explorer/Edge */
+    user-select: none; 
+}
+/* //uppermenu */
+#uppernav{
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+}
+#email, .hide-mobile {
+    flex: 0px;
+    font-family: sans-serif;
+      display: block;
+      z-index: 1;
+}
+/* Hide specific elements in mobile view */
+@media (max-width: 768px) {
+  #email {
+    display: none;
+  }
+
+  .hide-mobile {
+    display: none;
+  }
+
+  #uppernav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+#designer {
+  flex: 0px;
+  text-align: center;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  background-color: red;
+  color: rgb(255, 255, 255); /* Red text color */
+  white-space: nowrap; /* Prevents the text from wrapping */
+  overflow: hidden; /* Hides overflowed text */
+  display: inline-block; /* Ensure the text is in a single line */
+  position: relative;
+  width: 100%; /* Optional: You can set a width for the container */
+  animation: marquee 10s  linear infinite; /* Marquee effect */
+}
+
+
+@keyframes marquee {
+  0% {
+    transform: translateX(85%);
+    opacity: 0; /* Start hidden */
+  }
+  10% {
+    opacity: 1; /* Fade in */
+  }
+  90% {
+    opacity: 1; /* Stay visible */
+  }
+  100% {
+    transform: translateX(-50%);
+    opacity: 0; /* Fade out */
+  }
+}
+
+#currency{
+    flex: 0px;
+    text-align: right;
+    font-family: sans-serif;
+    color: #878787;
+    font-size: 12px;
+}
+#currencybtn{
+    color: #878787;
+    background-color: black;
+    border: none;
+}
+.hidden {
+    transform: translateY(-100%);
+}
+
+/* //lowermenu */
+#lowernav{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+#logo{
+    height: 118px;
+    width: 141px;
+}
+#menu{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex: 89px;
+    justify-content: right;
+}
+#jwellery, #about, #blog, #contact{
+    flex: 0;
+    margin: 0px 10px 0px 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+}
+#options{
+    display: flex;
+    flex-wrap:wrap;
+    flex: 0px;
+    align-items: center;
+    justify-content: right;
+}
+#jewelry-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+#dropdown-button {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  background-color: white;
+  color: black;
+  padding: 10px;
+  font-size: 16px;
+  border: 0px solid #ccc;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+#dropdown-content {
+  position: relative;
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+#dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+#imgicon{
+  position: absolute;
+  right: 30px;
+}
+#hamburger-button{
+  display: none;
+}
+#accountbtn{
+  padding-left: -0px;
+}
+/* Style for nested dropdowns */
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  display: none;
+}
+
+.dropdown-submenu:hover .dropdown-menu {
+  display: block;
+}
+/* Media query for mobile view */
+@media (max-width: 767px) {
+  .dropdown-submenu .dropdown-menu {
+      display: block;
+      position: static; /* Prevents the dropdown from being hidden off the screen */
+      margin-left: 0;
+      padding-left: 1rem; /* Optional: Adds some spacing for submenus */
+  }
+
+  .dropdown-submenu .dropdown-toggle {
+      width: 100%;
+      padding-left: 1rem;
+  }
+
+  .dropdown-menu {
+      position: static; /* Makes sure the dropdown stays within the mobile view */
+  }
+
+  .dropdown-menu .dropdown-item {
+      white-space: normal; /* Ensures long dropdown items don't overflow */
+  }
+}
+
+@media (max-width: 768px) {
+  #lowernav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .mobile-logo {
+    display: block;
+    height: 50px;
+    transform: translate(0%, 0); /* Reset transform for better centering */
+  }
+
+  #menu,
+  #options {
+    display: none; /* Hide the main navigation elements on mobile */
+  }
+
+  #hamburger-button {
+    display: block;
+    height: 30px;
+    width: 30px;
+    margin-left: auto; /* Push the hamburger button to the right */
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .mobile-menu-button i {
+    font-size: 24px;
+    color: black; /* Adjust color as needed */
+  }
+}
+
+
+/* //contactus button */
+.contact-button {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background-color: rgb(235, 235, 235);
+  box-shadow: rgba(22, 22, 22, 0.16) 0px 2px 4px;
+  padding: 10px;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  z-index: 1000; /* Adjust the value as needed */
+}
+
+.contact-button:hover {
+  background-color: rgb(235, 235, 235);
+  transform: scale(1.05);
+}
+
+
+/* Show the dropdown menu on button click */
+#jewelry-dropdown.show #dropdown-content {
+  display: block;
+}
+
+.fa-magnifying-glass,.fa-user{
+    font-size: 20px;
+    margin: 0px 30px 0px 10px;
+}
+#useraccount{
+      border: none;
+    background-color: transparent;
+    margin-top: 6px;
+}
+
+
+
+/* //carousle */
+.carousel-inner .carousel-item img,
+.carousel-inner .carousel-item video {
+  object-fit:cover; /* Ensure the media covers the area */
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  max-height: 500px; /* Maximum height for the carousel items */
+}
+#outercarousel{
+  object-fit:cover; /* Ensure the media covers the area */
+  width: 100%;
+  height: 298px; /* Maintain aspect ratio */
+  max-height: 500px; /* Maximum height for the carousel items */
+}
+
+
+@media (max-width: 768px) {
+  .carousel-inner .carousel-item img,
+  .carousel-inner .carousel-item video {
+    max-height: 300px; /* Adjust the height for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-inner .carousel-item img,
+  .carousel-inner .carousel-item video {
+    max-height: 200px; /* Further adjust the height for very small screens */
+  }
+}
+
+
+/* //category */
+#category{
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 75px;
+}
+#shopnow {
+  margin-top: 25px;
+  text-transform: capitalize;
+  color: #525252;
+  text-align: center;
+  text-decoration: solid;
+  font-family: "Playwrite AT", cursive;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+#ring,#necklace,#chain,#pandles,#bracelets,#earing{
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    margin: 10px;
+    transition: all 0.3s ease;
+}
+#ring:hover,#necklace:hover,#chain:hover,#pandles:hover,#bracelets:hover,#earing:hover{
+  box-shadow: rgba(240, 224, 152, 0.56) 0px 22px 70px 4px;
+}
+@media (max-width: 1024px) {
+  #category {
+    flex-wrap: nowrap; /* Prevent wrapping to ensure images stay in one line */
+    gap: 8px;
+  }
+  #ring,
+  #necklace,
+  #chain,
+  #pandles,
+  #bracelets,
+  #earing {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+  }
+}
+
+
+
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap");
+.container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px; /* Padding to ensure items don’t touch the edges */
+}
+.container > div {
+  flex: 1 1 calc(25% - 20px); /* Four items per row with gap */
+  border-radius: 0.5rem;
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
+  box-shadow: 1px 5px 15px #1e0e3e;
+  position: relative;
+  overflow: hidden;
+  height: 200px; /* Adjust height */
+  margin: 10px; /* Margin for spacing */
+}
+ .container > div:nth-of-type(2) {
+	 background: url("../img/nacklace2.jpg") no-repeat 50% / cover;
+     margin-top: 20px;
+}
+ .container > div:nth-of-type(1) {
+	 background: url("../img/ring2.webp") no-repeat 50% / cover;
+     margin-top: 20px;
+}
+ .container > div:nth-of-type(5) {
+	 background: url("../img/earings2.webp") no-repeat 50% / cover;
+     margin-top: 20px;
+}
+ .container > div:nth-of-type(4) {
+	 background: url("../img/bracelets2.webp") no-repeat 50% / cover;
+     margin-top: 20px;
+}
+.container > div:nth-of-type(3) {
+    background: url("../img/nackless.jpg") no-repeat 50% / cover;
+     margin-top: 20px;
+}
+.container > div .content {
+  font-size: 1.2rem; /* Font size */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  opacity: 0;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-end;
+  background: linear-gradient(0deg, rgba(2, 2, 46, 0.6755077030812324) 0%, rgba(255, 255, 255, 0) 100%);
+  transform: translateY(100%);
+  transition: opacity 0.5s ease-in-out, transform 0.5s 0.2s;
+  visibility: hidden;
+}
+ .container > div .content span {
+	 display: block;
+	 margin-top: 15px;
+	 font-size: 1.2rem;
+}
+.container > div:hover {
+  flex: 1 1 calc(25% - 20px); /* Maintain size on hover */
+  box-shadow: 1px 3px 15px #d5c5f7;
+  transform: translateY(-30px);
+}
+
+.container > div:hover .content {
+  opacity: 1;
+  transform: translateY(0%);
+  visibility: visible;
+}
+ 
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+  .container > div {
+      flex: 1 1 calc(50% - 20px); /* Two items per row */
+      height: 150px; /* Adjust height */
+  }
+}
+
+/* Media Queries for Extra Small Mobile */
+@media (max-width: 480px) {
+  .container > div {
+      flex: 1 1 calc(100% - 20px); /* Full width with margin */
+      height: 130px; /* Adjust height */
+  }
+
+  .container > div .content {
+      font-size: 1rem; /* Smaller font size for mobile */
+      padding: 8px; /* Reduced padding */
+  }
+}
+/*what we are */
+#whatweare{
+  position: relative;
+    text-align: center;
+    padding: 50px;
+    margin: 50px;
+    background-color:#fffcf4
+}
+.goal{
+    font-size: 15px;
+}
+.intro-text {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.first-line {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.second-line {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 10px; /* Adds a little space between the two lines */
+    display: block; /* Ensures the second line is centered */
+    text-align: center;
+}
+#Readmore::after{
+  content: "";
+  position: absolute;
+  width: 5%;
+  height: 2px;
+  bottom: 15%;
+  left: 47.4%;
+  background-color: black;
+  transform: scaleX(1);
+  transform-origin: bottom left;
+  transition: transform 0.5s ease;
+}
+#Readmore:hover::after {
+  transform: scaleX(0);
+}
+
+@media(max-width:768px){
+  #Readmore::after{
+    content: "";
+    position: absolute;
+    width: 30%;
+    height: 2px;
+    bottom: 10%;
+    left: 36%;
+    background-color: black;
+    transform: scaleX(1);
+    transform-origin: bottom left;
+    transition: transform 0.5s ease;
+  }
+  #Readmore:hover::after {
+    transform: scaleX(0);
+  } 
+}
+@media(max-width:480px){
+  #Readmore::after{
+    content: "";
+    position: absolute;
+    width: 30%;
+    height: 2px;
+    bottom: 10%;
+    left: 36%;
+    background-color: black;
+    transform: scaleX(1);
+    transform-origin: bottom left;
+    transition: transform 0.5s ease;
+  }
+  #Readmore:hover::after {
+    transform: scaleX(0);
+  } 
+}
+/* //twopart */
+#twopart{
+    background-color: #fffcf4;
+    display: flex;
+    margin: 50px;   
+}
+#multiring{
+    height: 700px;
+    flex: 0px;
+    width: 40%;
+}
+#productoverview{
+    flex: 0px;
+    padding:5% 0px 0px 40px;
+}
+.move{
+    padding: 150px;
+}
+/* Adjustments for responsiveness */
+
+/* For smaller screens, adjust the layout */
+@media (max-width: 768px) {
+    #twopart {
+      flex-direction: column; /* Stack items vertically */
+      margin: 20px; /* Adjust margin for smaller screens */
+    }
+    #multiring {
+      width: 100%; /* Take full width on smaller screens */
+      height: auto; /* Let the height adjust automatically */
+    }
+    #productoverview {
+      padding: 20px; /* Adjust padding for smaller screens */
+      text-align: center; /* Center align content */
+    }
+    .move {
+      padding: 50px; /* Reduce padding for smaller screens */
+    }
+  }
+  
+  /* For larger screens, maintain original layout */
+  @media (min-width: 992px) {
+    #twopart {
+      margin: 50px; /* Original margin for larger screens */
+    }
+    #multiring {
+      width: 40%; /* Original width for larger screens */
+      height: 700px; /* Original height */
+    }
+    #productoverview {
+      padding: 5% 0px 0px 40px; /* Original padding */
+    }
+    .move {
+      padding: 150px; /* Original padding */
+    }
+  }
+
+  /* videojwellery */
+  #modelvideo{
+    height: 100px;
+    width: 100px;
+  }
+
+  /* facility */
+  #facility {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
+    margin: 50px;
+    justify-content: center; /* Center items horizontally */
+  }
+  
+  #facility > div {
+    text-align: center; /* Center align text and images */
+    margin: 10px; /* Adjust margin between items */
+    flex: 1 1 300px; /* Flexible width: grow, shrink, basis */
+    max-width: 300px; /* Maximum width of each item */
+  }
+  
+  .up {
+    padding-right: 20px; /* Reduce padding for smaller screens */
+    font-size: 14px; /* Adjust font size for smaller screens */
+  }
+  
+  #coustomize, #return, #fast, #gift {
+    margin-left: 0; /* Remove left margin for icons */
+    margin-bottom: 10px; /* Add bottom margin for spacing */
+  }
+  
+
+  /* product card */
+  .curly-line {
+    width: 100%;
+    height: 100px; /* Adjust height as needed */
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" preserveAspectRatio="none"><path d="M0,50 Q50,0 100,50 T200,50" fill="transparent" stroke="black" stroke-width="2"/></svg>') no-repeat center;
+    background-size: cover;
+}
+
+  #trendy{
+    text-align: center;
+    font-family: "Playwrite AT", cursive;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Ensures the cards wrap to the next line on smaller screens */
+    justify-content: center; /* Centers the cards on the page */
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+    margin: 50px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+}
+
+.product-details {
+    padding: 20px;
+    text-align: center;
+}
+
+.product-name {
+    font-size: 1.5em;
+    margin: 10px 0;
+    color: #333;
+}
+
+.product-description {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.product-price {
+    font-size: 1.2em;
+    color: black;
+    margin-bottom: 15px;
+}
+
+.add-to-cart {
+    background-color: #ffffff;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.add-to-cart:hover {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: black;
+    background-size: 100%, 100%;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    filter: invert(1);
+}
+
+
+
+/* Media Queries for Responsiveness */
+
+@media (max-width: 1200px) {
+    .card {
+        width: 45%;
+        margin: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 90%;
+        margin: 20px 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .card {
+        width: 100%;
+        margin: 10px 0;
+    }
+}
+
+
+/* //fotter */
+footer {
+  height: auto; /* Adjust height to auto for better responsiveness */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Change to 1fr for equal column widths */
+  background-color: #fffcf4;
+  padding: 10px;
+}
+
+#info, #categories {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-evenly;
+  list-style-type: none;
+}
+
+.footerlink {
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+}
+
+#Address-links {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center; /* Center align the address content */
+}
+
+#links {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+#copyright {
+  margin-top: 30px;
+}
+
+#logofooter {
+  margin: 20px auto; /* Center the logo */
+  display: block;
+}
+
+/* //POPULAR SEARCH */
+
+#search {
+  background-color: #fffcf4;
+  padding-top: 50px;
+  text-align: center;
+}
+
+ul#categories {
+  list-style: none;
+  padding: 0;
+}
+
+ul#categories li {
+  position: relative;
+}
+
+ul#categories .dropdown-menu {
+  display: none;
+  position: absolute;
+  left: 60%;
+  top: 100%;
+  list-style: none;
+  background-color: #fff;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ddd;
+  z-index: 100;
+}
+
+ul#categories .dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+ul#categories .dropdown-menu li {
+  padding: 10px;
+}
+
+ul#categories .dropdown-menu li a { 
+  text-decoration: none;
+  color: #000;
+}
+
+ul#categories .dropdown-menu li a:hover {
+  color: #007bff;
+}
+
+
+/* Media Queries for Responsiveness */
+
+@media (max-width: 1200px) {
+  footer {
+      grid-template-columns: 1fr; /* Single column layout on smaller screens */
+  }
+  #info, #categories, #Address-links {
+      margin-bottom: 20px; /* Add spacing between sections */
+  }
+  #logofooter {
+      margin-left: auto;
+      margin-right: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  #links {
+      flex-direction: column;
+      gap: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  footer {
+      padding: 10px;
+  }
+  .footerlink {
+      font-size: 16px;
+  }
+  #links {
+      gap: 10px;
+  }
+  #logofooter {
+      height: 100px;
+      width: 100px;
+  }
+}
+/* Base styles for the image */
+#productfullwidthimages {
+  width: 100%;  /* Adjust width to fit the container */
+  height: auto; /* Maintain aspect ratio */
+  max-width: 100%; /* Ensure the image does not exceed its container's width */
+  display: block; /* Remove extra space below the image */
+  margin: 0 auto; /* Center the image horizontally */
+}
+
+/* Additional styles for mobile view */
+@media (max-width: 768px) {
+  #productfullwidthimages {
+      max-width: 100%; /* Ensures the image doesn't exceed the container's width */
+      height: auto; /* Keeps the aspect ratio intact */
+      object-fit: cover; /* Ensure the image covers the container without distortion */
+  }
+}

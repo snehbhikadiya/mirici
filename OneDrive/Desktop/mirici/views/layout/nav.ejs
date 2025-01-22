@@ -1,0 +1,285 @@
+<!-- //=====================uper nav======================== -->
+<nav id="uppernav">
+  <div id="email" class="hide-mobile">Info@greencraftjewels.com</div>
+  <div id="designer">On First Purchase get 20% OFF</div>
+  <div id="currency">
+    <div class="dropdown">
+      <button
+        id="currencybtn"
+        class="dropdown-toggle fs-6"
+        type="button"
+        data-bs-toggle="dropdown"
+      >
+        INR - Indian Rupee
+      </button>
+      <ul class="dropdown-menu dropdown-menu-light">
+        <li>
+          <a class="dropdown-item" href="#" onclick="changeCurrency('INR')"
+            >INR - Indian Rupee</a
+          >
+        </li>
+        <li>
+          <a class="dropdown-item" href="#" onclick="changeCurrency('USD')"
+            >USD - US Dollar</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- //=======================lowernav====================== -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <!-- Logo -->
+    <a class="navbar-brand" href="#">
+      <img src="/img/greencraft.jpg" alt="logo" id="logo" class="mobile-logo" />
+    </a>
+
+    <!-- Hamburger Menu Button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible Menu -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <!-- Jewelry Dropdown -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="jewelryDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Jewellery
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="jewelryDropdown">
+            <!-- Rings Dropdown -->
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="/ring">
+                <img
+                  src="/img/ringsicon.png"
+                  alt=""
+                  height="30"
+                  width="30"
+                  id="imgicon"
+                />
+                Ring
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="/engagementring"
+                    >Engagement Ring</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/eternityring"
+                    >Eternity Ring</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/weddingring">Wedding Ring</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/birthstonering"
+                    >Birthstone Ring</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- Bracelets Dropdown -->
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="/bracelets">
+                <img
+                  src="/img/braceleticon.png"
+                  alt=""
+                  height="30"
+                  width="30"
+                  id="imgicon"
+                />
+                Bracelets
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="/tennisbracelets"
+                    >Tennis Bracelet</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/chainlinkbracelets"
+                    >Chain Link Bracelet</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/banglebracelets"
+                    >Bangle Bracelet</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/charmbracelets"
+                    >Charm Bracelet</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- Pendant Dropdown -->
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="/pandals">
+                <img
+                  src="/img/pandalsicon.png"
+                  alt=""
+                  height="30"
+                  width="30"
+                  id="imgicon"
+                />
+                Pendant
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="/dimondpendants"
+                    >Diamond Pendant</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/pendantsets">Pendant Set</a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Necklaces Dropdown -->
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="/necklace">
+                <img
+                  src="/img/necklaceicon.png"
+                  alt=""
+                  height="30"
+                  width="30"
+                  id="imgicon"
+                />
+                Necklace
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="/chainnecklace"
+                    >Chain Necklace</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/chokernecklace">Choker</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/tennisnecklace"
+                    >Tennis Necklace</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- Earrings Dropdown -->
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="/earrings">
+                <img
+                  src="/img/earringicon.png"
+                  alt=""
+                  height="30"
+                  width="30"
+                  id="imgicon"
+                />
+                Earrings
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="/studsearrings">Studs</a>
+                </li>
+                <li><a class="dropdown-item" href="/topsearrings">Tops</a></li>
+                <li>
+                  <a class="dropdown-item" href="/dangleearrings"
+                    >Dangle Earrings</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Other Navigation Links -->
+        <li class="nav-item">
+          <a class="nav-link" href="/">GREEN CRAFT</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact</a>
+        </li>
+
+        <li class="nav-item d-flex align-items-center">
+          <form class="d-flex" role="search">
+            <input
+              class="form-control me-4"
+              type="search"
+              placeholder="Search Product..."
+              name="search"
+              value="<%= searchquery %>"
+            />
+            <button type="submit" style="border: none; background-color: white">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <!-- User Account Dropdown -->
+            <li class="nav-item dropdown ms-4">
+              <button
+                id="useraccount"
+                class="btn btn-link nav-link"
+                type="button"
+                data-bs-toggle="dropdown"
+              >
+                <i class="fa-regular fa-user"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <%if(session.passport){%>
+                <li>
+                  <a class="dropdown-item" href="#loginform" onclick="login()"
+                    >Sign In</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="#registerform"
+                    onclick="register()"
+                    >Create an account</a
+                  >
+                </li>
+                <%}%>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="#forgetpasswordform"
+                    onclick="forgetpassword()"
+                    >Forget Password</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

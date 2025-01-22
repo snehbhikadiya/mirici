@@ -1,0 +1,2244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Boxicons -->
+    <link
+      href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link href="https://cdn.datatables.net/v/dt/dt-2.1.6/datatables.min.css" rel="stylesheet">
+  
+    
+    <!-- My CSS -->
+    <title>admin</title>
+    <link rel="stylesheet" href="/css/admin.css"/>
+    <link
+      rel="shortcut icon"
+      href="img/icons8-administrator-male-100.png"
+      type="image/x-icon"
+    />
+    <!-- //for textarea edit -->
+    <script src="https://cdn.tiny.cloud/1/2p1mgs5bgq66s2gz1wday62e4uk1fu3tr3m3tegdu70jvkwm/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+  </head>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+
+  <style>
+    .swal2-popup {
+      background-color: rgb(219, 123, 123);
+    }
+    .swal2-cancel{
+      background-color: rgb(67, 144, 211);
+    }
+    .swal2-confirm {
+      background-color: rgb(206, 206, 95);
+    }
+  </style>
+
+
+
+  <body id="refresh">
+    
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+      <a href="#" class="brand">
+        <i class="bx bxs-smile"></i>
+        <span class="text">GREEN CRAFT</span>
+      </a>
+      <ul class="side-menu top">
+        <li >
+          <a href="/admin">
+            &nbsp;&nbsp;<img
+              src="/img/admin/dashboard.png"
+              height="30px"
+              width="30px"
+            />
+            &nbsp;&nbsp;<span class="text">Dashboard</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="/addproduct">
+            &nbsp;&nbsp;<img
+              src="/img/admin/products.png"
+              height="30px"
+              width="30px"
+            />
+            &nbsp;&nbsp;<span class="text"> My Product</span>
+          </a>
+        </li>
+        <li>
+          <a href="/myuser">
+            &nbsp;&nbsp;<img src="/img/admin/user.png" height="30px" width="30px" />
+            &nbsp;&nbsp;<span class="text">My User</span>
+          </a>
+        </li>
+        <li>
+          <a href="" id="up-btn">
+            &nbsp;&nbsp;<img src="/img/admin/up.png" height="30px" width="30px" />
+            &nbsp;&nbsp;<span class="text">Up</span>
+          </a>
+        </li>
+        <li>
+          <a href=""  id="down-btn">
+            &nbsp;&nbsp;<img src="/img/admin/down.png" height="30px" width="30px" />
+            &nbsp;&nbsp;<span class="text">Down</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+    <!-- CONTENT -->
+    <section id="content">
+      <!-- NAVBAR -->
+      <nav>
+        <i class="bx bx-menu"></i>
+        <a href="#" class="nav-link">Categories</a>
+        <form action="/addproduct" method="get">
+          <div class="form-input">
+            <input id="search-input" type="search" placeholder="Search for addresses..." name="search" value="<%= searchquery%>" />
+            <button type="submit" class="search-btn">
+              <i class="bx bx-search"></i>
+            </button>
+          </div>
+        </form>
+        <input type="checkbox" id="switch-mode" hidden />
+        <label for="switch-mode" class="switch-mode"></label>
+        <a href="#" class="profile">
+          <img src="/img/Mirici_Jewels_Logo[1].jpg" />
+        </a>
+      </nav>
+      <!-- NAVBAR -->
+
+      <!-- MAIN -->
+      <main >
+        <div class="head-title" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
+          <div class="left">
+            <h1>ADD PRODUCT</h1>
+            <ul class="breadcrumb">
+              <li>
+                <a href="#">ADD PRODUCT</a>
+              </li>
+              <li><i class="bx bx-chevron-right"></i></li>
+              <li>
+                <a class="active" href="/admin">Home</a>
+              </li>
+            </ul>
+          </div>
+          <button class="btn-download" type="button" id="btnpdf" value="export">
+            <i class="bx bxs-cloud-download"></i>
+            <span class="text">Download PDF</span>
+          </button>
+        </div>
+     
+      </div>
+
+      <% if (typeof success !== 'undefined' && success.length) { %>
+      <% success.forEach(message => { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong><%= message %></strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% }) %>
+    <% } else if (typeof error !== 'undefined' && error.length) { %>
+      <% error.forEach(message => { %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong><%= message %></strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% }) %>
+    <% } %>
+        
+        <!-- ======================================//trendy product======================= -->
+        <div id="ringproduct"  >Trendy Product</div>
+        <% if (!trendy._id) { %>
+          <!-- Form for adding a new product -->
+          <form action="/trendy" method="post" enctype="multipart/form-data" id="trendy">
+              <div id="imageContainer"></div>
+              <input type="file" id="fileInput" name="image" accept="image/*, video/*" multiple>
+              <input type="text" name="productName" class="product-name" placeholder="Product Name" required>
+              <textarea name="discription" id="discription" placeholder="Add Description" required></textarea>
+              <input type="text" name="productPrice" class="product-price" placeholder="Product Price" required>
+              <button type="submit" name="submit" class="submit">Submit</button>
+          </form>
+      <% } else { %>
+          <!-- Form for updating an existing product -->
+          <form action="/trendyupdate/<%= trendy._id %>" method="post" enctype="multipart/form-data" id="trendy">
+              <div id="imageContainer">
+                  <% trendy.images.forEach(function(image) { %>
+                      <input type="hidden" name="existingImages[]" value="<%= image %>">
+                      <img src="/img/uploads/<%= image %>" alt="Product Image" style="width:100px;">
+                  <% }); %>
+              </div>
+              <input type="file" id="fileInput" name="newImages" accept="image/*, video/*" multiple>
+              <input type="hidden" name="old_image" value="<%= trendy.images %>">
+              <input type="text" name="productName" class="product-name" placeholder="Product Name" value="<%= trendy.productName %>" required>
+              <textarea name="discription" id="discription" placeholder="Add Description"  required><%= trendy.discription %></textarea>
+              <input type="text" name="productPrice" class="product-price" placeholder="Product Price" value="<%= trendy.productPrice %>" required>
+              <button type="submit" name="submit" class="submit">Submit</button>
+          </form>
+      <% } %>
+      
+      
+      <div class="table-data" id="tabale1">
+        <div class="order">
+          <div class="head">
+            <h3>Trendy product</h3>
+          </div>
+          <% if(trendy!=''){%>
+          <table class="tablepdf">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Product Name</th>
+                <th>price</th>
+                <th>discription</th>
+                <th>update</th>
+                <th>delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% trendy.forEach((row,index)=>{%>
+              <tr>
+                <td>
+                  <% row.images.forEach(function(image) { %>
+                    <% if (image.endsWith('.mp4')) { %>
+                      <video
+                        src="<%= image %>"
+                        width="50"
+                        height="50"
+                        class="img-thumbnail"
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                        style="display: block;"
+                      >
+                        Your browser does not support the video tag.
+                      </video>
+                    <% } else { %>
+                      <img
+                        src="<%= image %>"
+                        width="50"
+                        height="50"
+                        class="img-thumbnail"
+                      />
+                    <% } %>
+                  <% }); %>
+                </td>
+                
+                <td><%= row.productName%></td>
+                <td><%= row.productPrice%></td>
+                <td><%= row.discription%></td>
+                <td>
+                  <a href="/addproduct" 
+                     class="text-success update-product"
+                     data-id="<%= row._id %>"
+                     data-image="<%= JSON.stringify(row.images) %>" 
+                     data-name="<%= row.productName %>"
+                     data-price="<%= row.productPrice %>"
+                     data-description="<%= row.discription %>"
+                     ><i class="fas fa-edit fa-lg mx-1 update"></i></a>
+                </td> 
+                <td>
+                  <a href="/delete/<%= row._id%>" class="text-danger"
+                    ><i class="fas fa-trash fa-lg mx-1 delete"></i
+                  ></a>
+                </td>
+              </tr>
+              <%})%>
+            </tbody>
+          </table>
+          <%} else {%>
+          <h3 class="text-center text-secondary mt-5">No Data Found</h3>
+          <%}%>
+        </div>
+      </div>
+      &nbsp;&nbsp;
+      <hr>
+
+    <!-- ===============================for bolg==================================  -->
+    <div id="ringproduct" id="blog">Blog</div>
+    <% if (!blog._id) { %>
+      <!-- Form for adding a new product -->
+      <form action="/blog" method="post" enctype="multipart/form-data" id="blog" >
+          <div id="imageContainerblog"></div>
+          <input type="file" id="fileInput" name="blogimage" accept="image/*, video/*" multiple>
+          <input type="text" name="bloghading" class="bloghading" placeholder="Blog Hading" required>
+          <textarea name="blogcontentmainpage" id="blogcontentmainpage" placeholder="Blog Content for main page" required></textarea>
+          <input type="text" name="titleofcontent1" class="titleofcontent1" placeholder="Title Of Content 1" required>
+          <textarea name="content1" id="content1" class="content1" placeholder="Blog Content 1" required></textarea>
+          <input type="text" name="titleofcontent2" class="titleofcontent2" placeholder="Title Of Content 2" >
+          <textarea name="content2" id="content2" placeholder="Blog Content 2" ></textarea>
+          <input type="text" name="titleofcontent3" class="titleofcontent3" placeholder="Title Of Content 3" >
+          <textarea name="content3" id="content3" placeholder="Blog Content 3" ></textarea>
+          <button type="submit" name="submit" class="submit">Submit</button>
+      </form>
+  <% } else { %>
+      <!-- Form for updating an existing product -->
+      <form action="/blogupdate/<%= blog._id %>" method="post" enctype="multipart/form-data" id="trendy">
+          <div id="imageContainerblog">
+              <% blog.blogimage.forEach(function(image) { %>
+                  <input type="hidden" name="existingImages[]" value="<%= image %>">
+                  <img src="/img/uploads/blog/<%= image %>" alt="Product Image" style="width:100px;">
+              <% }); %>
+          </div>
+          <input type="file" id="fileInput" name="newImages" accept="image/*, video/*" multiple>
+          <input type="hidden" name="old_image" value="<%= blog.blogimage %>">
+
+          <input type="text" name="bloghading" class="bloghading" placeholder="Blog Hading" value="<%= blog.bloghading%>" required>
+          <textarea name="blogcontentmainpage" id="blogcontentmainpage" placeholder="Blog content for main page" value="<%= blog.blogcontentmainpage%>" required></textarea>
+          <input type="text" name="titleofcontent1" class="titleofcontent1" placeholder="Title Of Content 1" value="<%= blog.titleofcontent1%>" required>
+          <textarea name="content1" id="content1" class="content1" placeholder="Blog content 1" value="<%= blog.content1%>" required></textarea>
+          <input type="text" name="titleofcontent2" class="titleofcontent2" placeholder="Title Of Content 2" value="<%= blog.titleofcontent2%>" required>
+          <textarea name="content2" id="content2" placeholder="Blog Content 2" value="<%= blog.content2%>" required></textarea>
+          <input type="text" name="titleofcontent3" class="titleofcontent3" placeholder="Title Of Content 3" value="<%= blog.titleofcontent3%>">
+          <textarea name="content3" id="content3" placeholder="Blog Content 3" value="<%= blog.content3%>"></textarea>
+
+          <button type="submit" name="submit" class="submit">Submit</button>
+      </form>
+  <% } %>
+  
+  
+  <div class="table-data" id="tabale1">
+    <div class="order">
+      <div class="head">
+        <h3>Blog</h3>
+        <i class="bx bx-search"></i>
+        <i class="bx bx-filter"></i>
+      </div>
+      <% if(blog!=''){%>
+      <table class="tablepdf">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Blog Hading</th>
+            <th>Blog Content For Main Page</th>
+            <th>Title Of Content 1</th>
+            <th>Content 1</th>
+            <th>Title Of Content 2</th>
+            <th>Content 2</th>
+            <th>Title Of Content 3</th>
+            <th>Content 3</th>
+            <th>update</th>
+            <th>delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% blog.forEach((row,index)=>{%>
+          <tr>
+            <td>
+              <% row.blogimage.forEach(function(image) { %>
+                <% if (image.endsWith('.mp4')) { %>
+                  <video
+                    src="<%=image %>"
+                    width="50"
+                    height="50"
+                    class="img-thumbnail"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    style="display: block;"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                <% } else { %>
+                  <img
+                    src="<%= image %>"
+                    width="50"
+                    height="50"
+                    class="img-thumbnail"
+                  />
+                <% } %>
+              <% }); %>
+            </td>
+            <td><%= row.bloghading%></td>
+            <td><%= row.blogcontentmainpage%></td>
+            <td><%= row.titleofcontent1%></td>
+            <td><%= row.content1%></td>
+            <td><%= row.titleofcontent2%></td>
+            <td><%= row.content2%></td>
+            <td><%= row.titleofcontent3%></td>
+            <td><%= row.content3%></td>
+            <td>
+              <a href="/addproduct" 
+              class="text-success update-blog"
+              data-id="<%= row._id %>"
+              data-image="<%= JSON.stringify(row.blogimage) %>"
+              data-bloghading="<%= row.bloghading %>"
+              data-blogcontentmainpage="<%= row.blogcontentmainpage %>"
+              data-titleofcontent1="<%= row.titleofcontent1 %>"
+              data-content1="<%= row.content1 %>"
+              data-titleofcontent2="<%= row.titleofcontent2 %>"
+              data-content2="<%= row.content2 %>"
+              data-titleofcontent3="<%= row.titleofcontent3 %>"
+              data-content3="<%= row.content3 %>">
+              <i class="fas fa-edit fa-lg mx-1 update"></i>
+            </a>
+           
+            </td> 
+            <td>
+              <a href="/blogdelete/<%= row._id%>" class="text-danger"
+                ><i class="fas fa-trash fa-lg mx-1 delete"></i
+                  ></i
+              ></a>
+            </td>
+          </tr>
+          <%})%>
+        </tbody>
+      </table>
+      <%} else {%>
+      <h3 class="text-center text-secondary mt-5">No Data Found</h3>
+      <%}%>
+    </div>
+  </div>
+
+  <!-- //=========================================for ring product=========================== -->
+
+  <div id="ringproduct" id="ring">Ring💍</div>
+  <% if (!ring._id) { %>
+    <!-- Form for adding a new product -->
+    <form action="/ring" method="post" enctype="multipart/form-data" id="ring">
+        <div id="imageContainerring"></div>
+        <input type="file" id="fileInput" name="ringimage" accept="image/*, video/*" multiple>
+        <input type="text" name="productName" class="product-name" placeholder="Product Name" required>
+        <textarea name="discription" id="discription" placeholder="Add Description" required></textarea>
+        <input type="text" name="productPrice" class="product-price" placeholder="Product Price" required>
+        <input type="text" name="typeofring" class="typeofring" placeholder="Type Of Ring" required>
+        <input type="text" name="fakemrp" class="fakemrp" placeholder="Fake Mrp" required>
+        <input type="text" name="realmrp" class="realmrp" placeholder="Real Mrp" required>
+        <input type="text" name="yousave" class="yousave" placeholder="You Save" required>
+        <input type="text" name="discount" class="discount" placeholder="Discount" required>
+        <label for="ringsize">Select Ring Sizes:</label>
+        <select id="ringsize" name="ringsize[]" multiple required>
+            <option value="4">Size 4</option>
+            <option value="5">Size 5</option>
+            <option value="6">Size 6</option>
+            <option value="7">Size 7</option>
+            <option value="8">Size 8</option>
+            <option value="9">Size 9</option>
+        </select>
+        <input type="text" name="gold" class="gold" placeholder="gold" >
+        <input type="text" name="silver" class="silver" placeholder="silver" >
+        <input type="text" name="dimonad" class="dimonad" placeholder="dimonad" >
+        <input type="text" name="makingcharge" class="makingcharge" placeholder="makingcharge" required>
+        <input type="text" name="gstpersent" class="gstpersent" placeholder="gstpersent" required>
+        <input type="text" name="gst" class="gst" placeholder="gst" required>
+        <input type="text" name="productheight" class="productheight" placeholder="productheight" required>
+        <input type="text" name="productwidth" class="productwidth" placeholder="productwidth" required>
+        <input type="text" name="productbandwith" class="productbandwith" placeholder="productbandwith" required>
+        <button type="submit" name="submit" class="submit">Submit</button>
+    </form>
+<% } else { %>
+    <!-- Form for updating an existing product -->
+    <form action="/ringupdate/<%= ring._id %>" method="post" enctype="multipart/form-data" id="ring">
+      <div id="imageContainerring">
+        <% ring.ringimage.forEach(function(image) { %>
+            <input type="hidden" name="existingImages[]" value="<%= image %>">
+            <img src="/img/uploads/ring/<%= image %>" alt="Product Image" style="width:100px;">
+        <% }); %>
+    </div>
+    <input type="file" id="fileInput" name="newImages[]" accept="image/*, video/*" multiple>
+    <input type="hidden" name="old_image" value="<%= ring.ringimage %>">
+        
+        <input type="text" name="productName" class="product-name" placeholder="Product Name" required>
+        <textarea name="discription" id="discription" placeholder="Add Description" required></textarea>
+        <input type="text" name="productPrice" class="product-price" placeholder="Product Price" required>
+        <input type="text" name="typeofring" class="typeofring" placeholder="Type Of Ring" required>
+        <input type="text" name="fakemrp" class="fakemrp" placeholder="Fake Mrp" required>
+        <input type="text" name="realmrp" class="realmrp" placeholder="Real Mrp" required>
+        <input type="text" name="yousave" class="yousave" placeholder="You Save" required>
+        <input type="text" name="discount" class="discount" placeholder="Discount" required>
+        <label for="ringsize">Select Ring Sizes:</label>
+        <select id="ringsize" name="ringsize[]" multiple required>
+            <option value="4">Size 4</option>
+            <option value="5">Size 5</option>
+            <option value="6">Size 6</option>
+            <option value="7">Size 7</option>
+            <option value="8">Size 8</option>
+            <option value="9">Size 9</option>
+        </select>
+        <input type="text" name="gold" class="gold" placeholder="gold" >
+        <input type="text" name="silver" class="silver" placeholder="silver" >
+        <input type="text" name="dimonad" class="dimonad" placeholder="dimonad" >
+        <input type="text" name="makingcharge" class="makingcharge" placeholder="makingcharge" required>
+        <input type="text" name="gstpersent" class="gstpersent" placeholder="gstpersent" required>
+        <input type="text" name="gst" class="gst" placeholder="gst" required>
+        <input type="text" name="productheight" class="productheight" placeholder="productheight" required>
+        <input type="text" name="productwidth" class="productwidth" placeholder="productwidth" required>
+        <input type="text" name="productbandwith" class="productbandwith" placeholder="productbandwith" required>
+        <button type="submit" name="submit" class="submit">Submit</button>
+    </form>
+<% } %>
+
+
+<div class="table-data" id="tabale1">
+  <div class="order">
+    <div class="head">
+      <h3>Ring</h3>
+      <i class="bx bx-search"></i>
+      <i class="bx bx-filter"></i>
+    </div>
+    <% if(ring!=''){%>
+    <table class="tablepdf">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Product Name</th>
+          <th>price</th>
+          <th>discription</th>
+          <th>typeofring</th>
+          <th>fakemrp</th>
+          <th>realmrp</th>
+          <th>yousave</th>
+          <th>discount</th>
+          <th>ringsize</th>
+          <th>gold</th>
+          <th>silver</th>
+          <th>dimonad</th>
+          <th>makingcharge</th>
+          <th>gstpersent</th>
+          <th>gst</th>
+          <th>productheight</th>
+          <th>productwidth</th>
+          <th>productbandwith</th>
+          <th>update</th>
+          <th>delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% ring.forEach((row,index)=>{%>
+        <tr>
+          <td>
+            <% row.ringimage.forEach(function(image) { %>
+              <% if (image.endsWith('.mp4')) { %>
+                <video
+                  src="<%= image %>"
+                  width="50"
+                  height="50"
+                  class="img-thumbnail"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  style="display: block;"
+                >
+                  Your browser does not support the video tag.
+                </video>
+              <% } else { %>
+                <img
+                  src="<%= image %>"
+                  width="50"
+                  height="50"
+                  class="img-thumbnail"
+                />
+              <% } %>
+            <% }); %>
+          </td>
+          <td><%= row.productName%></td>
+          <td><%= row.productPrice%></td>
+          <td><%= row.discription%></td>
+          <td><%= row.typeofring%></td>
+          <td><%= row.fakemrp%></td>
+          <td><%= row.realmrp%></td>
+          <td><%= row.yousave%></td>
+          <td><%= row.discount%></td>
+          <td><%= row.ringsize%></td>
+          <td><%= row.gold%></td>
+          <td><%= row.silver%></td>
+          <td><%= row.dimonad%></td>
+          <td><%= row.makingcharge%></td>
+          <td><%= row.gstpersent%></td>
+          <td><%= row.gst%></td>
+          <td><%= row.productheight%></td>
+          <td><%= row.productwidth%></td>
+          <td><%= row.productbandwith%></td>
+          <td>
+            <a href="/addproduct"
+            class="text-success update-ringproduct"
+            data-id="<%= row._id %>"
+            data-image="<%= JSON.stringify(row.ringimage) %>" 
+            data-name="<%= row.productName %>"
+            data-price="<%= row.productPrice %>"
+            data-description="<%= row.discription %>"
+            data-typeofring="<%= row.typeofring %>"
+            data-fakemrp="<%= row.fakemrp %>"
+            data-realmrp="<%= row.realmrp %>"
+            data-yousave="<%= row.yousave %>"
+            data-discount="<%= row.discount %>"
+            data-gold="<%= row.gold %>"
+            data-silver="<%= row.silver %>"
+            data-dimonad="<%= row.dimonad %>"
+            data-makingcharge="<%= row.makingcharge %>"
+            data-gstpersent="<%= row.gstpersent %>"
+            data-gst="<%= row.gst %>"
+            data-productheight="<%= row.productheight %>"
+            data-productwidth="<%= row.productwidth %>"
+            data-productbandwith="<%= row.productbandwith %>"
+            data-ringsize="<%= JSON.stringify(row.ringsize) %>">
+            <i class="fas fa-edit fa-lg mx-1 update"></i>
+           </a>
+         
+          </td> 
+          <td>
+            <a href="/ringdelete/<%= row._id%>" class="text-danger"
+              ><i class="fas fa-trash fa-lg mx-1 delete"></i
+                  ></i
+            ></a>
+          </td>
+        </tr>
+        <%})%>
+      </tbody>
+    </table>
+    <%} else {%>
+    <h3 class="text-center text-secondary mt-5">No Data Found</h3>
+    <%}%>
+  </div>
+</div>
+&nbsp;&nbsp;
+<hr>
+
+<!-- ==================================for bracelet================================== -->
+ 
+<div id="ringproduct" id="bracelet">Bracelet</div>
+<% if (!bracelet._id) { %>
+  <!-- Form for adding a new product -->
+  <form action="/bracelet" method="post" enctype="multipart/form-data" id="bracelet">
+      <div id="imageContainerbracelet"></div>
+      <input type="file" id="fileInput" name="braceletimage" accept="image/*, video/*" multiple>
+      <input type="text" name="productName" class="product-name" placeholder="Product Name" required>
+      <textarea name="discription" id="discription" placeholder="Add Description" required></textarea>
+      <input type="text" name="productPrice" class="product-price" placeholder="Product Price" required>
+      <input type="text" name="typeofbracelet" class="typeofbracelet" placeholder="Type Of Bracelet" required>
+      <input type="text" name="fakemrp" class="fakemrp" placeholder="Fake Mrp" required>
+      <input type="text" name="realmrp" class="realmrp" placeholder="Real Mrp" required>
+      <input type="text" name="yousave" class="yousave" placeholder="You Save" required>
+      <input type="text" name="discount" class="discount" placeholder="Discount" required>
+      <label for="braceletsize">Select Ring Sizes:</label>
+      <select id="braceletsize" name="braceletsize[]" multiple required>
+          <option value="4">Size 4</option>
+          <option value="5">Size 5</option>
+          <option value="6">Size 6</option>
+          <option value="7">Size 7</option>
+          <option value="8">Size 8</option>
+          <option value="9">Size 9</option>
+      </select>
+      <input type="text" name="gold" class="gold" placeholder="gold" >
+      <input type="text" name="silver" class="silver" placeholder="silver" >
+      <input type="text" name="dimonad" class="dimonad" placeholder="dimonad" >
+      <input type="text" name="makingcharge" class="makingcharge" placeholder="makingcharge" required>
+      <input type="text" name="gstpersent" class="gstpersent" placeholder="gstpersent" required>
+      <input type="text" name="gst" class="gst" placeholder="gst" required>
+      <input type="text" name="productheight" class="productheight" placeholder="productheight" required>
+      <input type="text" name="productwidth" class="productwidth" placeholder="productwidth" required>
+      <input type="text" name="productbandwith" class="productbandwith" placeholder="productbandwith" required>
+      <button type="submit" name="submit" class="submit">Submit</button>
+  </form>
+<% } else { %>
+  <!-- Form for updating an existing product -->
+  <form action="/braceletupdate/<%= bracelet._id %>" method="post" enctype="multipart/form-data" id="bracelet">
+    <div id="imageContainerbracelet">
+      <% bracelet.braceletimage.forEach(function(image) { %>
+          <input type="hidden" name="existingImages[]" value="<%= image %>">
+          <img src="/img/uploads/bracelet/<%= image %>" alt="Product Image" style="width:100px;">
+      <% }); %>
+  </div>
+  <input type="file" id="fileInput" name="newImages[]" accept="image/*, video/*" multiple>
+  <input type="hidden" name="old_image" value="<%= bracelet.braceletimage %>">
+      
+      <input type="text" name="productName" class="product-name" placeholder="Product Name" required>
+      <textarea name="discription" id="discription" placeholder="Add Description" required></textarea>
+      <input type="text" name="productPrice" class="product-price" placeholder="Product Price" required>
+      <input type="text" name="typeofbracelet" class="typeofbracelet" placeholder="Type Of Bracelet" required>
+      <input type="text" name="fakemrp" class="fakemrp" placeholder="Fake Mrp" required>
+      <input type="text" name="realmrp" class="realmrp" placeholder="Real Mrp" required>
+      <input type="text" name="yousave" class="yousave" placeholder="You Save" required>
+      <input type="text" name="discount" class="discount" placeholder="Discount" required>
+      <label for="braceletsize">Select Ring Sizes:</label>
+      <select id="braceletsize" name="braceletsize[]" multiple required>
+          <option value="4">Size 4</option>
+          <option value="5">Size 5</option>
+          <option value="6">Size 6</option>
+          <option value="7">Size 7</option>
+          <option value="8">Size 8</option>
+          <option value="9">Size 9</option>
+      </select>
+      <input type="text" name="gold" class="gold" placeholder="gold" >
+      <input type="text" name="silver" class="silver" placeholder="silver" >
+      <input type="text" name="dimonad" class="dimonad" placeholder="dimonad" >
+      <input type="text" name="makingcharge" class="makingcharge" placeholder="makingcharge" required>
+      <input type="text" name="gstpersent" class="gstpersent" placeholder="gstpersent" required>
+      <input type="text" name="gst" class="gst" placeholder="gst" required>
+      <input type="text" name="productheight" class="productheight" placeholder="productheight" required>
+      <input type="text" name="productwidth" class="productwidth" placeholder="productwidth" required>
+      <input type="text" name="productbandwith" class="productbandwith" placeholder="productbandwith" required>
+      <button type="submit" name="submit" class="submit">Submit</button>
+  </form>
+<% } %>
+
+
+<div class="table-data" id="tabale1">
+<div class="order">
+  <div class="head">
+    <h3>Bracelet</h3>
+  
+  </div>
+  <% if(bracelet!=''){%>
+  <table class="tablepdf">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Product Name</th>
+        <th>price</th>
+        <th>discription</th>
+        <th>typeofbracelet</th>
+        <th>fakemrp</th>
+        <th>realmrp</th>
+        <th>yousave</th>
+        <th>discount</th>
+        <th>braceletsize</th>
+        <th>gold</th>
+        <th>silver</th>
+        <th>dimonad</th>
+        <th>makingcharge</th>
+        <th>gstpersent</th>
+        <th>gst</th>
+        <th>productheight</th>
+        <th>productwidth</th>
+        <th>productbandwith</th>
+        <th>update</th>
+        <th>delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% bracelet.forEach((row,index)=>{%>
+      <tr>
+        <td>
+          <% row.braceletimage.forEach(function(image) { %>
+            <% if (image.endsWith('.mp4')) { %>
+              <video
+                src="<%= image %>"
+                width="50"
+                height="50"
+                class="img-thumbnail"
+                autoplay
+                muted
+                loop
+                playsinline
+                style="display: block;"
+              >
+                Your browser does not support the video tag.
+              </video>
+            <% } else { %>
+              <img
+                src="<%= image %>"
+                width="50"
+                height="50"
+                class="img-thumbnail"
+              />
+            <% } %>
+          <% }); %>
+        </td>
+        <td><%= row.productName%></td>
+        <td><%= row.productPrice%></td>
+        <td><%= row.discription%></td>
+        <td><%= row.typeofbracelet%></td>
+        <td><%= row.fakemrp%></td>
+        <td><%= row.realmrp%></td>
+        <td><%= row.yousave%></td>
+        <td><%= row.discount%></td>
+        <td><%= row.braceletsize%></td>
+        <td><%= row.gold%></td>
+        <td><%= row.silver%></td>
+        <td><%= row.dimonad%></td>
+        <td><%= row.makingcharge%></td>
+        <td><%= row.gstpersent%></td>
+        <td><%= row.gst%></td>
+        <td><%= row.productheight%></td>
+        <td><%= row.productwidth%></td>
+        <td><%= row.productbandwith%></td>
+        <td>
+          <a href="/addproduct"
+          class="text-success update-braceletproduct"
+          data-id="<%= row._id %>"
+          data-image="<%= JSON.stringify(row.braceletimage) %>" 
+          data-name="<%= row.productName %>"
+          data-price="<%= row.productPrice %>"
+          data-description="<%= row.discription %>"
+          data-typeofbracelet="<%= row.typeofbracelet %>"
+          data-fakemrp="<%= row.fakemrp %>"
+          data-realmrp="<%= row.realmrp %>"
+          data-yousave="<%= row.yousave %>"
+          data-discount="<%= row.discount %>"
+          data-gold="<%= row.gold %>"
+          data-silver="<%= row.silver %>"
+          data-dimonad="<%= row.dimonad %>"
+          data-makingcharge="<%= row.makingcharge %>"
+          data-gstpersent="<%= row.gstpersent %>"
+          data-gst="<%= row.gst %>"
+          data-productheight="<%= row.productheight %>"
+          data-productwidth="<%= row.productwidth %>"
+          data-productbandwith="<%= row.productbandwith %>"
+          data-ringsize="<%= JSON.stringify(row.braceletsize) %>">
+          <i class="fas fa-edit fa-lg mx-1 update"></i>
+         </a>
+       
+        </td> 
+        <td>
+          <a href="/braceletdelete/<%= row._id%>" class="text-danger"
+            ><i class="fas fa-trash fa-lg mx-1 delete"></i
+                  ></i
+          ></a>
+        </td>
+      </tr>
+      <%})%>
+    </tbody>
+  </table>
+  <%} else {%>
+  <h3 class="text-center text-secondary mt-5">No Data Found</h3>
+  <%}%>
+</div>
+</div>
+&nbsp;&nbsp;
+<hr>
+
+
+<!-- =======================for pendant=========================== -->
+<div id="ringproduct" id="pendant">Pendant</div>
+<% if (!pendant._id) { %>
+  <!-- Form for adding a new product -->
+  <form action="/pendant" method="post" enctype="multipart/form-data" id="pendant">
+      <div id="imageContainerpendant"></div>
+      <input type="file" id="fileInput" name="pendantimage" accept="image/*, video/*" multiple>
+      <input type="text" name="productName" class="product-name" placeholder="Product Name" required>
+      <textarea name="discription" id="discription" placeholder="Add Description" required></textarea>
+      <input type="text" name="productPrice" class="product-price" placeholder="Product Price" required>
+      <input type="text" name="typeofpendant" class="typeofpendant" placeholder="Type Of Pendant" required>
+      <input type="text" name="fakemrp" class="fakemrp" placeholder="Fake Mrp" required>
+      <input type="text" name="realmrp" class="realmrp" placeholder="Real Mrp" required>
+      <input type="text" name="yousave" class="yousave" placeholder="You Save" required>
+      <input type="text" name="discount" class="discount" placeholder="Discount" required>
+      <label for="pendantsize">Select Ring Sizes:</label>
+      <select id="pendantsize" name="pendantsize[]" multiple required>
+          <option value="4">Size 4</option>
+          <option value="5">Size 5</option>
+          <option value="6">Size 6</option>
+          <option value="7">Size 7</option>
+          <option value="8">Size 8</option>
+          <option value="9">Size 9</option>
+      </select>
+      <input type="text" name="gold" class="gold" placeholder="gold" >
+      <input type="text" name="silver" class="silver" placeholder="silver" >
+      <input type="text" name="dimonad" class="dimonad" placeholder="dimonad" >
+      <input type="text" name="makingcharge" class="makingcharge" placeholder="makingcharge" required>
+      <input type="text" name="gstpersent" class="gstpersent" placeholder="gstpersent" required>
+      <input type="text" name="gst" class="gst" placeholder="gst" required>
+      <input type="text" name="productheight" class="productheight" placeholder="productheight" required>
+      <input type="text" name="productwidth" class="productwidth" placeholder="productwidth" required>
+      <input type="text" name="productbandwith" class="productbandwith" placeholder="productbandwith" required>
+      <button type="submit" name="submit" class="submit">Submit</button>
+  </form>
+<% } else { %>
+  <!-- Form for updating an existing product -->
+  <form action="/pendantupdate/<%= pendant._id %>" method="post" enctype="multipart/form-data" id="pendant">
+    <div id="imageContainerpendant">
+      <% pendant.pendantimage.forEach(function(image) { %>
+          <input type="hidden" name="existingImages[]" value="<%= image %>">
+          <img src="/img/uploads/pendant/<%= image %>" alt="Product Image" style="width:100px;">
+      <% }); %>
+  </div>
+  <input type="file" id="fileInput" name="newImages[]" accept="image/*, video/*" multiple>
+  <input type="hidden" name="old_image" value="<%= pendant.pendantimage %>">
+      
+      <input type="text" name="productName" class="product-name" placeholder="Product Name" required>
+      <textarea name="discription" id="discription" placeholder="Add Description" required></textarea>
+      <input type="text" name="productPrice" class="product-price" placeholder="Product Price" required>
+      <input type="text" name="typeofpendant" class="typeofpendant" placeholder="Type Of Pendant" required>
+      <input type="text" name="fakemrp" class="fakemrp" placeholder="Fake Mrp" required>
+      <input type="text" name="realmrp" class="realmrp" placeholder="Real Mrp" required>
+      <input type="text" name="yousave" class="yousave" placeholder="You Save" required>
+      <input type="text" name="discount" class="discount" placeholder="Discount" required>
+      <label for="pendantsize">Select Ring Sizes:</label>
+      <select id="pendantsize" name="pendantsize[]" multiple required>  
+          <option value="4">Size 4</option>
+          <option value="5">Size 5</option>
+          <option value="6">Size 6</option>
+          <option value="7">Size 7</option>
+          <option value="8">Size 8</option>
+          <option value="9">Size 9</option>
+      </select>
+      <input type="text" name="gold" class="gold" placeholder="gold" >
+      <input type="text" name="silver" class="silver" placeholder="silver" >
+      <input type="text" name="dimonad" class="dimonad" placeholder="dimonad" >
+      <input type="text" name="makingcharge" class="makingcharge" placeholder="makingcharge" required>
+      <input type="text" name="gstpersent" class="gstpersent" placeholder="gstpersent" required>
+      <input type="text" name="gst" class="gst" placeholder="gst" required>
+      <input type="text" name="productheight" class="productheight" placeholder="productheight" required>
+      <input type="text" name="productwidth" class="productwidth" placeholder="productwidth" required>
+      <input type="text" name="productbandwith" class="productbandwith" placeholder="productbandwith" required>
+      <button type="submit" name="submit" class="submit">Submit</button>
+  </form>
+<% } %>
+
+
+<div class="table-data" id="tabale1">
+<div class="order">
+  <div class="head">
+    <h3>Pendant</h3>
+
+  </div>
+  <% if(pendant!=''){%>
+  <table class="tablepdf">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Product Name</th>
+        <th>price</th>
+        <th>discription</th>
+        <th>typeofpendant</th>
+        <th>fakemrp</th>
+        <th>realmrp</th>
+        <th>yousave</th>
+        <th>discount</th>
+        <th>pendantsize</th>
+        <th>gold</th>
+        <th>silver</th>
+        <th>dimonad</th>
+        <th>makingcharge</th>
+        <th>gstpersent</th>
+        <th>gst</th>
+        <th>productheight</th>
+        <th>productwidth</th>
+        <th>productbandwith</th>
+        <th>update</th>
+        <th>delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% pendant.forEach((row,index)=>{%>
+      <tr>
+        <td>
+          <% row.pendantimage.forEach(function(image) { %>
+            <% if (image.endsWith('.mp4')) { %>
+              <video
+                src="<%= image %>"
+                width="50"
+                height="50"
+                class="img-thumbnail"
+                autoplay
+                muted
+                loop
+                playsinline
+                style="display: block;"
+              >
+                Your browser does not support the video tag.
+              </video>
+            <% } else { %>
+              <img
+                src="<%= image %>"
+                width="50"
+                height="50"
+                class="img-thumbnail"
+              />
+            <% } %>
+          <% }); %>
+        </td>
+        <td><%= row.productName%></td>
+        <td><%= row.productPrice%></td>
+        <td><%= row.discription%></td>
+        <td><%= row.typeofpendant%></td>
+        <td><%= row.fakemrp%></td>
+        <td><%= row.realmrp%></td>
+        <td><%= row.yousave%></td>
+        <td><%= row.discount%></td>
+        <td><%= row.pendantsize%></td>
+        <td><%= row.gold%></td>
+        <td><%= row.silver%></td>
+        <td><%= row.dimonad%></td>
+        <td><%= row.makingcharge%></td>
+        <td><%= row.gstpersent%></td>
+        <td><%= row.gst%></td>
+        <td><%= row.productheight%></td>
+        <td><%= row.productwidth%></td>
+        <td><%= row.productbandwith%></td>
+        <td>
+          <a href="/addproduct"
+             class="text-success update-pendantproduct"
+             data-id="<%= row._id %>"
+             data-image="<%= JSON.stringify(row.pendantimage) %>" 
+             data-name="<%= row.productName %>"
+             data-price="<%= row.productPrice %>"
+             data-description="<%= row.discription %>"
+             data-typeofpendant="<%= row.typeofpendant %>"
+             data-fakemrp="<%= row.fakemrp %>"
+             data-realmrp="<%= row.realmrp %>"
+             data-yousave="<%= row.yousave %>"
+             data-discount="<%= row.discount %>"
+             data-gold="<%= row.gold %>"
+             data-silver="<%= row.silver %>"
+             data-dimonad="<%= row.dimonad %>"
+             data-makingcharge="<%= row.makingcharge %>"
+             data-gstpersent="<%= row.gstpersent %>"
+             data-gst="<%= row.gst %>"
+             data-productheight="<%= row.productheight %>"
+             data-productwidth="<%= row.productwidth %>"
+             data-productbandwith="<%= row.productbandwith %>"
+             data-pendantsize="<%= JSON.stringify(row.pendantsize) %>">
+             <i class="fas fa-edit fa-lg mx-1 update"></i>
+          </a>
+      </td>
+      
+        <td>
+          <a href="/pendantdelete/<%= row._id%>" class="text-danger"
+            ><i class="fas fa-trash fa-lg mx-1 delete"></i
+                  ></i
+          ></a>
+        </td>
+      </tr>
+      <%})%>
+    </tbody>
+  </table>
+  <%} else {%>
+  <h3 class="text-center text-secondary mt-5">No Data Found</h3>
+  <%}%>
+</div>
+</div>
+
+
+<!-- ===========================================//for necklace======================= -->
+<div id="ringproduct" id="necklace" >Necklace</div>
+<% if (!necklace._id) { %>
+  <!-- Form for adding a new product -->
+  <form action="/necklace" method="post" enctype="multipart/form-data" id="necklace">
+      <div id="imageContainerNecklace"></div>
+      <input type="file" id="fileInput" name="necklaceimage" accept="image/*, video/*" multiple>
+      <input type="text" name="productName" class="product-name" placeholder="Product Name" required>
+      <textarea name="discription" id="discription" placeholder="Add Description" required></textarea>
+      <input type="text" name="productPrice" class="product-price" placeholder="Product Price" required>
+      <input type="text" name="typeofnecklace" class="typeofnecklace" placeholder="Type Of Necklace" required>
+      <input type="text" name="fakemrp" class="fakemrp" placeholder="Fake Mrp" required>
+      <input type="text" name="realmrp" class="realmrp" placeholder="Real Mrp" required>
+      <input type="text" name="yousave" class="yousave" placeholder="You Save" required>
+      <input type="text" name="discount" class="discount" placeholder="Discount" required>
+      <label for="necklacesize">Select Ring Sizes:</label>
+      <select id="necklacesize" name="necklacesize[]" multiple required>
+          <option value="4">Size 4</option>
+          <option value="5">Size 5</option>
+          <option value="6">Size 6</option>
+          <option value="7">Size 7</option>
+          <option value="8">Size 8</option>
+          <option value="9">Size 9</option>
+      </select>
+      <input type="text" name="gold" class="gold" placeholder="gold" >
+      <input type="text" name="silver" class="silver" placeholder="silver" >
+      <input type="text" name="dimonad" class="dimonad" placeholder="dimonad" >
+      <input type="text" name="makingcharge" class="makingcharge" placeholder="makingcharge" required>
+      <input type="text" name="gstpersent" class="gstpersent" placeholder="gstpersent" required>
+      <input type="text" name="gst" class="gst" placeholder="gst" required>
+      <input type="text" name="productheight" class="productheight" placeholder="productheight" required>
+      <input type="text" name="productwidth" class="productwidth" placeholder="productwidth" required>
+      <input type="text" name="productbandwith" class="productbandwith" placeholder="productbandwith" required>
+      <button type="submit" name="submit" class="submit">Submit</button>
+  </form>
+<% } else { %>
+  <!-- Form for updating an existing product -->
+  <form action="/necklaceupdate/<%= necklace._id %>" method="post" enctype="multipart/form-data" id="necklace">
+    <div id="imageContainerNecklace">
+      <% necklace.necklaceimage.forEach(function(image) { %>
+          <input type="hidden" name="existingImages[]" value="<%=image%>">
+          <img src="/img/uploads/necklace/<%= image %>" alt="Product Image" style="width:100px;">
+      <% }); %>
+  </div>
+  <input type="file" id="fileInput" name="newImages[]" accept="image/*, video/*" multiple>
+  <input type="hidden" name="old_image" value="<%= necklace.necklaceimage %>">
+      
+      <input type="text" name="productName" class="product-name" placeholder="Product Name" required>
+      <textarea name="discription" id="discription" placeholder="Add Description" required></textarea>
+      <input type="text" name="productPrice" class="product-price" placeholder="Product Price" required>
+      <input type="text" name="typeofnecklace" class="typeofnecklace" placeholder="Type Of Necklace" required>
+      <input type="text" name="fakemrp" class="fakemrp" placeholder="Fake Mrp" required>
+      <input type="text" name="realmrp" class="realmrp" placeholder="Real Mrp" required>
+      <input type="text" name="yousave" class="yousave" placeholder="You Save" required>
+      <input type="text" name="discount" class="discount" placeholder="Discount" required>
+      <label for="necklacesize">Select Ring Sizes:</label>
+      <select id="necklacesize" name="necklacesize[]" multiple required>
+          <option value="4">Size 4</option>
+          <option value="5">Size 5</option>
+          <option value="6">Size 6</option>
+          <option value="7">Size 7</option>
+          <option value="8">Size 8</option>
+          <option value="9">Size 9</option>
+      </select>
+      <input type="text" name="gold" class="gold" placeholder="gold" >
+      <input type="text" name="silver" class="silver" placeholder="silver" >
+      <input type="text" name="dimonad" class="dimonad" placeholder="dimonad" >
+      <input type="text" name="makingcharge" class="makingcharge" placeholder="makingcharge" required>
+      <input type="text" name="gstpersent" class="gstpersent" placeholder="gstpersent" required>
+      <input type="text" name="gst" class="gst" placeholder="gst" required>
+      <input type="text" name="productheight" class="productheight" placeholder="productheight" required>
+      <input type="text" name="productwidth" class="productwidth" placeholder="productwidth" required>
+      <input type="text" name="productbandwith" class="productbandwith" placeholder="productbandwith" required>
+      <button type="submit" name="submit" class="submit">Submit</button>
+  </form>
+<% } %>
+
+
+<div class="table-data" id="tabale1">
+<div class="order">
+  <div class="head">
+    <h3>Necklace</h3>
+
+  </div>
+  <% if(necklace!=''){%>
+  <table class="tablepdf">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Product Name</th>
+        <th>price</th>
+        <th>discription</th>
+        <th>typeofnecklace</th>
+        <th>fakemrp</th>
+        <th>realmrp</th>
+        <th>yousave</th>
+        <th>discount</th>
+        <th>necklacesize</th>
+        <th>gold</th>
+        <th>silver</th>
+        <th>dimonad</th>
+        <th>makingcharge</th>
+        <th>gstpersent</th>
+        <th>gst</th>
+        <th>productheight</th>
+        <th>productwidth</th>
+        <th>productbandwith</th>
+        <th>update</th>
+        <th>delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% necklace.forEach((row,index)=>{%>
+      <tr>
+        <td>
+          <% row.necklaceimage.forEach(function(image) { %>
+            <% if (image.endsWith('.mp4')) { %>
+              <video
+                src="<%= image %>"
+                width="50"
+                height="50"
+                class="img-thumbnail"
+                autoplay
+                muted
+                loop
+                playsinline
+                style="display: block;"
+              >
+                Your browser does not support the video tag.
+              </video>
+            <% } else { %>
+              <img
+                src="<%= image %>"
+                width="50"
+                height="50"
+                class="img-thumbnail"
+              />
+            <% } %>
+          <% }); %>
+        </td>
+        <td><%= row.productName%></td>
+        <td><%= row.productPrice%></td>
+        <td><%= row.discription%></td>
+        <td><%= row.typeofnecklace%></td>
+        <td><%= row.fakemrp%></td>
+        <td><%= row.realmrp%></td>
+        <td><%= row.yousave%></td>
+        <td><%= row.discount%></td>
+        <td><%= row.necklacesize%></td>
+        <td><%= row.gold%></td>
+        <td><%= row.silver%></td>
+        <td><%= row.dimonad%></td>
+        <td><%= row.makingcharge%></td>
+        <td><%= row.gstpersent%></td>
+        <td><%= row.gst%></td>
+        <td><%= row.productheight%></td>
+        <td><%= row.productwidth%></td>
+        <td><%= row.productbandwith%></td>
+        <td>
+          <a href="/addproduct"
+             class="text-success update-necklaceproduct"
+             data-id="<%= row._id %>"
+             data-image="<%= JSON.stringify(row.necklaceimage) %>" 
+             data-name="<%= row.productName %>"
+             data-price="<%= row.productPrice %>"
+             data-description="<%= row.discription %>"
+             data-typeofnecklace="<%= row.typeofnecklace %>"
+             data-fakemrp="<%= row.fakemrp %>"
+             data-realmrp="<%= row.realmrp %>"
+             data-yousave="<%= row.yousave %>"
+             data-discount="<%= row.discount %>"
+             data-gold="<%= row.gold %>"
+             data-silver="<%= row.silver %>"
+             data-dimonad="<%= row.dimonad %>"
+             data-makingcharge="<%= row.makingcharge %>"
+             data-gstpersent="<%= row.gstpersent %>"
+             data-gst="<%= row.gst %>"
+             data-productheight="<%= row.productheight %>"
+             data-productwidth="<%= row.productwidth %>"
+             data-productbandwith="<%= row.productbandwith %>"
+             data-necklacesize="<%= JSON.stringify(row.necklacesize) %>">
+             <i class="fas fa-edit fa-lg mx-1 update"></i>
+          </a>
+      </td>
+      
+        <td>
+          <a href="/necklacedelete/<%= row._id%>" class="text-danger"
+            ><i class="fas fa-trash fa-lg mx-1 delete"></i
+                  ></i
+          ></a>
+        </td>
+      </tr>
+      <%})%>
+    </tbody>
+  </table>
+  <%} else {%>
+  <h3 class="text-center text-secondary mt-5">No Data Found</h3>
+  <%}%>
+</div>
+</div>
+&nbsp;&nbsp;
+<hr>
+
+
+<!-- =================================for earrings================================= -->
+<div id="ringproduct" id="earrings" >Earrings</div>
+<% if (!necklace._id) { %>
+  <!-- Form for adding a new product -->
+  <form action="/earring" method="post" enctype="multipart/form-data" id="earring">
+      <div id="imageContainerearring"></div>
+      <input type="file" id="fileInput" name="earringimage" accept="image/*, video/*" multiple>
+      <input type="text" name="productName" class="product-name" placeholder="Product Name" required>
+      <textarea name="discription" id="discription" placeholder="Add Description" required></textarea>
+      <input type="text" name="productPrice" class="product-price" placeholder="Product Price" required>
+      <input type="text" name="typeofearring" class="typeofearring" placeholder="Type Of Earrings" required>
+      <input type="text" name="fakemrp" class="fakemrp" placeholder="Fake Mrp" required>
+      <input type="text" name="realmrp" class="realmrp" placeholder="Real Mrp" required>
+      <input type="text" name="yousave" class="yousave" placeholder="You Save" required>
+      <input type="text" name="discount" class="discount" placeholder="Discount" required>
+      <label for="earringsize">Select Ring Sizes:</label>
+      <select id="earringsize" name="earringsize[]" multiple required>
+          <option value="4">Size 4</option>
+          <option value="5">Size 5</option>
+          <option value="6">Size 6</option>
+          <option value="7">Size 7</option>
+          <option value="8">Size 8</option>
+          <option value="9">Size 9</option>
+      </select>
+      <input type="text" name="gold" class="gold" placeholder="gold" >
+      <input type="text" name="silver" class="silver" placeholder="silver" >
+      <input type="text" name="dimonad" class="dimonad" placeholder="dimonad" >
+      <input type="text" name="makingcharge" class="makingcharge" placeholder="makingcharge" required>
+      <input type="text" name="gstpersent" class="gstpersent" placeholder="gstpersent" required>
+      <input type="text" name="gst" class="gst" placeholder="gst" required>
+      <input type="text" name="productheight" class="productheight" placeholder="productheight" required>
+      <input type="text" name="productwidth" class="productwidth" placeholder="productwidth" required>
+      <input type="text" name="productbandwith" class="productbandwith" placeholder="productbandwith" required>
+      <button type="submit" name="submit" class="submit">Submit</button>
+  </form>
+<% } else { %>
+  <!-- Form for updating an existing product -->
+  <form action="/earringupdate/<%= earring._id %>" method="post" enctype="multipart/form-data" id="earring">
+    <div id="imageContainerearring">
+      <% earring.earringimage.forEach(function(image) { %>
+          <input type="hidden" name="existingImages[]" value="<%=image%>">
+          <img src="/img/uploads/earring/<%= image %>" alt="Product Image" style="width:100px;">
+      <% }); %>
+  </div>
+  <input type="file" id="fileInput" name="newImages[]" accept="image/*, video/*" multiple>
+  <input type="hidden" name="old_image" value="<%= earring.earringimage %>">
+      
+      <input type="text" name="productName" class="product-name" placeholder="Product Name" required>
+      <textarea name="discription" id="discription" placeholder="Add Description" required></textarea>
+      <input type="text" name="productPrice" class="product-price" placeholder="Product Price" required>
+      <input type="text" name="typeofearring" class="typeofearring" placeholder="Type Of Earrings" required>
+      <input type="text" name="fakemrp" class="fakemrp" placeholder="Fake Mrp" required>
+      <input type="text" name="realmrp" class="realmrp" placeholder="Real Mrp" required>
+      <input type="text" name="yousave" class="yousave" placeholder="You Save" required>
+      <input type="text" name="discount" class="discount" placeholder="Discount" required>
+      <label for="earringsize">Select Ring Sizes:</label>
+      <select id="earringsize" name="earringsize[]" multiple required>
+          <option value="4">Size 4</option>
+          <option value="5">Size 5</option>
+          <option value="6">Size 6</option>
+          <option value="7">Size 7</option>
+          <option value="8">Size 8</option>
+          <option value="9">Size 9</option>
+      </select>
+      <input type="text" name="gold" class="gold" placeholder="gold" >
+      <input type="text" name="silver" class="silver" placeholder="silver" >
+      <input type="text" name="dimonad" class="dimonad" placeholder="dimonad" >
+      <input type="text" name="makingcharge" class="makingcharge" placeholder="makingcharge" required>
+      <input type="text" name="gstpersent" class="gstpersent" placeholder="gstpersent" required>
+      <input type="text" name="gst" class="gst" placeholder="gst" required>
+      <input type="text" name="productheight" class="productheight" placeholder="productheight" required>
+      <input type="text" name="productwidth" class="productwidth" placeholder="productwidth" required>
+      <input type="text" name="productbandwith" class="productbandwith" placeholder="productbandwith" required>
+      <button type="submit" name="submit" class="submit">Submit</button>
+  </form>
+<% } %>
+
+
+<div class="table-data" id="tabale1">
+<div class="order">
+  <div class="head">
+    <h3>Earrings</h3>
+    
+  </div>
+  <% if(earring!=''){%>
+  <table class="tablepdf">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Product Name</th>
+        <th>price</th>
+        <th>discription</th>
+        <th>typeofearring</th>
+        <th>fakemrp</th>
+        <th>realmrp</th>
+        <th>yousave</th>
+        <th>discount</th>
+        <th>earringsize</th>
+        <th>gold</th>
+        <th>silver</th>
+        <th>dimonad</th>
+        <th>makingcharge</th>
+        <th>gstpersent</th>
+        <th>gst</th>
+        <th>productheight</th>
+        <th>productwidth</th>
+        <th>productbandwith</th>
+        <th>update</th>
+        <th>delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% earring.forEach((row,index)=>{%>
+      <tr>
+        <td>
+          <% row.earringimage.forEach(function(image) { %>
+            <% if (image.endsWith('.mp4')) { %>
+              <video
+                src="<%= image %>"
+                width="50"
+                height="50"
+                class="img-thumbnail"
+                autoplay
+                muted
+                loop
+                playsinline
+                style="display: block;"
+              >
+                Your browser does not support the video tag.
+              </video>
+            <% } else { %>
+              <img
+                src="<%= image %>"
+                width="50"
+                height="50"
+                class="img-thumbnail"
+              />
+            <% } %>
+          <% }); %>
+        </td>
+        <td><%= row.productName%></td>
+        <td><%= row.productPrice%></td>
+        <td><%= row.discription%></td>
+        <td><%= row.typeofearring%></td>
+        <td><%= row.fakemrp%></td>
+        <td><%= row.realmrp%></td>
+        <td><%= row.yousave%></td>
+        <td><%= row.discount%></td>
+        <td><%= row.earringsize%></td>
+        <td><%= row.gold%></td>
+        <td><%= row.silver%></td>
+        <td><%= row.dimonad%></td>
+        <td><%= row.makingcharge%></td>
+        <td><%= row.gstpersent%></td>
+        <td><%= row.gst%></td>
+        <td><%= row.productheight%></td>
+        <td><%= row.productwidth%></td>
+        <td><%= row.productbandwith%></td>
+        <td>
+          <a href="/addproduct"
+             class="text-success update-earringproduct"
+             data-id="<%= row._id %>"
+             data-image="<%= JSON.stringify(row.earringimage) %>" 
+             data-name="<%= row.productName %>"
+             data-price="<%= row.productPrice %>"
+             data-description="<%= row.discription %>"
+             data-typeofearring="<%= row.typeofearring %>"
+             data-fakemrp="<%= row.fakemrp %>"
+             data-realmrp="<%= row.realmrp %>"
+             data-yousave="<%= row.yousave %>"
+             data-discount="<%= row.discount %>"
+             data-gold="<%= row.gold %>"
+             data-silver="<%= row.silver %>"
+             data-dimonad="<%= row.dimonad %>"
+             data-makingcharge="<%= row.makingcharge %>"
+             data-gstpersent="<%= row.gstpersent %>"
+             data-gst="<%= row.gst %>"
+             data-productheight="<%= row.productheight %>"
+             data-productwidth="<%= row.productwidth %>"
+             data-productbandwith="<%= row.productbandwith %>"
+             data-earringsize="<%= JSON.stringify(row.earringsize) %>">
+             <i class="fas fa-edit fa-lg mx-1 update"></i>
+          </a>
+      </td>
+      
+        <td>
+          <a href="/earringdelete/<%= row._id%>" class="text-danger"
+            ><i class="fas fa-trash fa-lg mx-1 delete"></i
+                  ></i
+          ></a>
+        </td>
+      </tr>
+      <%})%>
+    </tbody>
+  </table>
+  <%} else {%>
+  <h3 class="text-center text-secondary mt-5">No Data Found</h3>
+  <%}%>
+</div>
+</div>
+</main>
+ <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+
+    <script>
+      const allSideMenu = document.querySelectorAll(
+        "#sidebar .side-menu.top li a"
+      );
+      const whiteTextElements = document.querySelectorAll(".white-text"); // Select elements with class "white-text"
+
+      allSideMenu.forEach((item) => {
+        const li = item.parentElement;
+
+        item.addEventListener("click", function () {
+          allSideMenu.forEach((i) => {
+            i.parentElement.classList.remove("active");
+          });
+          li.classList.add("active");
+        });
+      });
+
+      // TOGGLE SIDEBAR
+      const menuBar = document.querySelector("#content nav .bx.bx-menu");
+      const sidebar = document.getElementById("sidebar");
+
+      menuBar.addEventListener("click", function () {
+        sidebar.classList.toggle("hide");
+      });
+
+      const searchButton = document.querySelector(
+        "#content nav form .form-input button"
+      );
+      const searchButtonIcon = document.querySelector(
+        "#content nav form .form-input button .bx"
+      );
+      const searchForm = document.querySelector("#content nav form");
+
+      searchButton.addEventListener("click", function (e) {
+        if (window.innerWidth < 576) {
+          e.preventDefault();
+          searchForm.classList.toggle("show");
+          if (searchForm.classList.contains("show")) {
+            searchButtonIcon.classList.replace("bx-search", "bx-x");
+          } else {
+            searchButtonIcon.classList.replace("bx-x", "bx-search");
+          }
+        }
+      });
+
+      if (window.innerWidth < 768) {
+        sidebar.classList.add("hide");
+      } else if (window.innerWidth > 576) {
+        searchButtonIcon.classList.replace("bx-x", "bx-search");
+        searchForm.classList.remove("show");
+      }
+
+      window.addEventListener("resize", function () {
+        if (this.innerWidth > 576) {
+          searchButtonIcon.classList.replace("bx-x", "bx-search");
+          searchForm.classList.remove("show");
+        }
+      });
+
+      const switchMode = document.getElementById("switch-mode");
+
+      switchMode.addEventListener("change", function () {
+        if (this.checked) {
+          document.body.classList.add("dark");
+          whiteTextElements.forEach((element) => {
+            element.classList.add("white-text-dark"); // Add class "white-text-dark" for white text in dark mode
+          });
+        } else {
+          document.body.classList.remove("dark");
+          whiteTextElements.forEach((element) => {
+            element.classList.remove("white-text-dark"); // Remove class "white-text-dark" for white text in light mode
+          });
+        }
+      });
+    </script>
+  </body>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+    integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"
+    integrity="sha512-ZKNVEa7gi0Dz4Rq9jXcySgcPiK+5f01CqW+ZoKLLKr9VMXuCsw3RjWiv8ZpIOa0hxO79np7Ec8DDWALM0bDOaQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"
+    integrity="sha512-d8F1J2kyiRowBB/8/pAWsqUl0wSEOkG5KATkVV4slfblq9VRQ6MyDZVxWl2tWd+mPhuCbpTB4M7uU/x9FlgQ9Q=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
+  <script>
+    $(".counter").counterUp({
+      delay: 10,
+      time: 3000,
+    });
+  </script>
+  <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"
+  ></script>
+  <script type="text/javascript">
+    var button = document.getElementById("btnpdf");
+    var makepdf = document.getElementsByClassName("tablepdf");
+
+    button.addEventListener("click", function () {
+      var mywindow = window.open("", "PRINT", "height=400,width=600");
+
+      mywindow.document.write(makepdf.innerHTML);
+
+      mywindow.document.close();
+      mywindow.focus();
+
+      mywindow.print();
+      mywindow.close();
+
+      return true;
+    });
+  </script>
+</html>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- ====================for trendy product========================= -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  const updateButtons = document.querySelectorAll('.update-product');
+  const form = document.getElementById('trendy');
+  const imageContainer = document.getElementById('imageContainer');
+
+  updateButtons.forEach(button => {
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+
+      // Get data from the clicked button
+      const id = this.getAttribute('data-id');
+      const images = JSON.parse(this.getAttribute('data-image'));
+      const name = this.getAttribute('data-name');
+      const price = this.getAttribute('data-price');
+      const description = this.getAttribute('data-description');
+
+      // Populate the form fields
+      form.action = `/trendyupdate/${id}`; // Update the form action to send to the correct route
+      form.querySelector('input[name="productName"]').value = name;
+      form.querySelector('input[name="productPrice"]').value = price;
+      form.querySelector('textarea[name="discription"]').value = description;
+
+      imageContainer.innerHTML = ''; // Clear previous images
+      images.forEach(imageUrl => {
+          if (imageUrl.match(/\.(mp4|webm|ogg)$/i)) {
+            // Create video element
+            const video = document.createElement('video');
+            video.src = imageUrl;
+            video.width = 320; // Set video width
+            video.height = 240; // Set video height
+            video.controls = false; // Hide controls
+            video.autoplay = true; // Autoplay video
+            video.muted = true; // Mute video
+            video.classList.add('video-thumbnail'); // Optional: add any class for styling
+            imageContainer.appendChild(video);
+          } else {
+            // Create image element
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.width = 100; // Set image size
+            img.height = 100; // Set image size
+            img.classList.add('img-thumbnail'); // Optional: add any class for styling
+            imageContainer.appendChild(img);
+          }
+        });
+    });
+  });
+});
+
+</script>
+
+<!-- ==================================for blog======================= -->
+ <script>
+  document.addEventListener('DOMContentLoaded', function() {
+  const updateButtons = document.querySelectorAll('.update-blog');
+  const blogForm = document.getElementById('blog');
+  const imageContainer = document.getElementById('imageContainerblog');
+
+  updateButtons.forEach(button => {
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+
+      // Get data from the clicked button
+      const id = this.getAttribute('data-id');
+      const images = JSON.parse(this.getAttribute('data-image'));
+      const blogHading = this.getAttribute('data-bloghading');
+      const blogContentMainPage = this.getAttribute('data-blogcontentmainpage');
+      const titleOfContent1 = this.getAttribute('data-titleofcontent1');
+      const content1 = this.getAttribute('data-content1');
+      const titleOfContent2 = this.getAttribute('data-titleofcontent2');
+      const content2 = this.getAttribute('data-content2');
+      const titleOfContent3 = this.getAttribute('data-titleofcontent3');
+      const content3 = this.getAttribute('data-content3');
+
+      // Populate the blog form fields
+      if (blogForm) {
+        blogForm.action = `/blogupdate/${id}`;
+        blogForm.querySelector('input[name="bloghading"]').value = blogHading;
+        blogForm.querySelector('textarea[name="blogcontentmainpage"]').value = blogContentMainPage;
+        blogForm.querySelector('input[name="titleofcontent1"]').value = titleOfContent1;
+        blogForm.querySelector('textarea[name="content1"]').value = content1;
+        blogForm.querySelector('input[name="titleofcontent2"]').value = titleOfContent2;
+        blogForm.querySelector('textarea[name="content2"]').value = content2;
+        blogForm.querySelector('input[name="titleofcontent3"]').value = titleOfContent3;
+        blogForm.querySelector('textarea[name="content3"]').value = content3;
+
+        imageContainer.innerHTML = ''; // Clear previous images
+        images.forEach(imageUrl => {
+          if (imageUrl.match(/\.(mp4|webm|ogg)$/i)) {
+            // Create video element
+            const video = document.createElement('video');
+            video.src = imageUrl;
+            video.width = 320; // Set video width
+            video.height = 240; // Set video height
+            video.controls = false; // Hide controls
+            video.autoplay = true; // Autoplay video
+            video.muted = true; // Mute video
+            video.classList.add('video-thumbnail'); // Optional: add any class for styling
+            imageContainer.appendChild(video);
+          } else {
+            // Create image element
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.width = 100; // Set image size
+            img.height = 100; // Set image size
+            img.classList.add('img-thumbnail'); // Optional: add any class for styling
+            imageContainer.appendChild(img);
+          }
+        });
+    
+      }
+    });
+  });
+});
+ </script>
+
+ <!-- =======================//for ring product================ -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const updateButtons = document.querySelectorAll('.update-ringproduct');
+    const ring = document.getElementById('ring');
+    const imageContainer = document.getElementById('imageContainerring');
+
+    updateButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const id = this.getAttribute('data-id');
+            const images = JSON.parse(this.getAttribute('data-image'));
+            const productName = this.getAttribute('data-name');
+            const productPrice = this.getAttribute('data-price');
+            const description = this.getAttribute('data-description');
+            const typeofring = this.getAttribute('data-typeofring');
+            const fakemrp = this.getAttribute('data-fakemrp');
+            const realmrp = this.getAttribute('data-realmrp');
+            const yousave = this.getAttribute('data-yousave');
+            const discount= this.getAttribute('data-discount');
+            const gold = this.getAttribute('data-gold');
+            const silver = this.getAttribute('data-silver');
+            const dimonad = this.getAttribute('data-dimonad');
+            const makingcharge = this.getAttribute('data-makingcharge');
+            const gstpersent = this.getAttribute('data-gstpersent');
+            const gst = this.getAttribute('data-gst');
+            const productheight = this.getAttribute('data-productheight');
+            const productwidth = this.getAttribute('data-productwidth');
+            const productbandwith = this.getAttribute('data-productbandwith');
+            const ringsize = JSON.parse(this.getAttribute('data-ringsize'));
+
+            if (ring) {
+                ring.action = `/ringupdate/${id}`;
+                ring.querySelector('input[name="productName"]').value = productName;
+                ring.querySelector('input[name="productPrice"]').value = productPrice;
+                ring.querySelector('textarea[name="discription"]').value = description;
+                ring.querySelector('input[name="typeofring"]').value = typeofring;
+                ring.querySelector('input[name="fakemrp"]').value = fakemrp;
+                ring.querySelector('input[name="realmrp"]').value = realmrp;
+                ring.querySelector('input[name="yousave"]').value = yousave;
+                ring.querySelector('input[name="discount"]').value=discount
+                ring.querySelector('input[name="gold"]').value = gold;
+                ring.querySelector('input[name="silver"]').value = silver;
+                ring.querySelector('input[name="dimonad"]').value = dimonad;
+                ring.querySelector('input[name="makingcharge"]').value = makingcharge;
+                ring.querySelector('input[name="gstpersent"]').value = gstpersent;
+                ring.querySelector('input[name="gst"]').value = gst;
+                ring.querySelector('input[name="productheight"]').value = productheight;
+                ring.querySelector('input[name="productwidth"]').value = productwidth;
+                ring.querySelector('input[name="productbandwith"]').value = productbandwith;
+
+                // Handle ring sizes
+                const ringSizeSelect = ring.querySelector('select[name="ringsize[]"]');
+                ringSizeSelect.value = ''; // Reset previous selection
+                Array.from(ringSizeSelect.options).forEach(option => {
+                    option.selected = ringsize.includes(option.value);
+                }); 
+
+                // Handle images
+                imageContainer.innerHTML = ''; // Clear existing images
+                images.forEach(imageUrl => {
+          if (imageUrl.match(/\.(mp4|webm|ogg)$/i)) {
+            // Create video element
+            const video = document.createElement('video');
+            video.src = imageUrl;
+            video.width = 320; // Set video width
+            video.height = 240; // Set video height
+            video.controls = false; // Hide controls
+            video.autoplay = true; // Autoplay video
+            video.muted = true; // Mute video
+            video.classList.add('video-thumbnail'); // Optional: add any class for styling
+            imageContainer.appendChild(video);
+          } else {
+            // Create image element
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.width = 100; // Set image size
+            img.height = 100; // Set image size
+            img.classList.add('img-thumbnail'); // Optional: add any class for styling
+            imageContainer.appendChild(img);
+          }
+        });
+       }
+        });
+    });
+});
+</script>
+
+
+ <!-- ====================//for bracelet product===================== -->
+ <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const updateButtons = document.querySelectorAll('.update-braceletproduct');
+    const bracelet = document.getElementById('bracelet');
+    const imageContainer = document.getElementById('imageContainerbracelet');
+
+    updateButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const id = this.getAttribute('data-id');
+            const images = JSON.parse(this.getAttribute('data-image'));
+            const productName = this.getAttribute('data-name');
+            const productPrice = this.getAttribute('data-price');
+            const description = this.getAttribute('data-description');
+            const typeofbracelet = this.getAttribute('data-typeofbracelet');
+            const fakemrp = this.getAttribute('data-fakemrp');
+            const realmrp = this.getAttribute('data-realmrp');
+            const yousave = this.getAttribute('data-yousave');
+            const discount= this.getAttribute('data-discount');
+            const gold = this.getAttribute('data-gold');
+            const silver = this.getAttribute('data-silver');
+            const dimonad = this.getAttribute('data-dimonad');
+            const makingcharge = this.getAttribute('data-makingcharge');
+            const gstpersent = this.getAttribute('data-gstpersent');
+            const gst = this.getAttribute('data-gst');
+            const productheight = this.getAttribute('data-productheight');
+            const productwidth = this.getAttribute('data-productwidth');
+            const productbandwith = this.getAttribute('data-productbandwith');
+            let braceletsize = JSON.parse(this.getAttribute('data-braceletsize'));
+
+            if (bracelet) {
+              bracelet.action = `/braceletupdate/${id}`;
+              bracelet.querySelector('input[name="productName"]').value = productName;
+                bracelet.querySelector('input[name="productPrice"]').value = productPrice;
+                bracelet.querySelector('textarea[name="discription"]').value = description;
+                bracelet.querySelector('input[name="typeofbracelet"]').value = typeofbracelet;
+                bracelet.querySelector('input[name="fakemrp"]').value = fakemrp;
+                bracelet.querySelector('input[name="realmrp"]').value = realmrp;
+                bracelet.querySelector('input[name="yousave"]').value = yousave;
+                bracelet.querySelector('input[name="discount"]').value=discount
+                bracelet.querySelector('input[name="gold"]').value = gold;
+                bracelet.querySelector('input[name="silver"]').value = silver;
+                bracelet.querySelector('input[name="dimonad"]').value = dimonad;
+                bracelet.querySelector('input[name="makingcharge"]').value = makingcharge;
+                bracelet.querySelector('input[name="gstpersent"]').value = gstpersent;
+                bracelet.querySelector('input[name="gst"]').value = gst;
+                bracelet.querySelector('input[name="productheight"]').value = productheight;
+                bracelet.querySelector('input[name="productwidth"]').value = productwidth;
+                bracelet.querySelector('input[name="productbandwith"]').value = productbandwith;
+
+                // Handle ring sizes
+                 braceletsize = braceletsize || []; 
+                const braceletsizeselect = bracelet.querySelector('select[name="braceletsize[]"]');
+                braceletsizeselect.value = ''; // Reset previous selection
+                Array.from(braceletsizeselect.options).forEach(option => {
+                    option.selected = Array.isArray(braceletsize)&&braceletsize.includes(option.value);
+                }); 
+
+              
+      imageContainer.innerHTML = ''; // Clear previous images
+      images.forEach(imageUrl => {
+          if (imageUrl.match(/\.(mp4|webm|ogg)$/i)) {
+            // Create video element
+            const video = document.createElement('video');
+            video.src = imageUrl;
+            video.width = 320; // Set video width
+            video.height = 240; // Set video height
+            video.controls = false; // Hide controls
+            video.autoplay = true; // Autoplay video
+            video.muted = true; // Mute video
+            video.classList.add('video-thumbnail'); // Optional: add any class for styling
+            imageContainer.appendChild(video);
+          } else {
+            // Create image element
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.width = 100; // Set image size
+            img.height = 100; // Set image size
+            img.classList.add('img-thumbnail'); // Optional: add any class for styling
+            imageContainer.appendChild(img);
+          }
+        });
+            }
+        });
+    });
+});
+</script>
+
+ <!-- //for =======================pendant=================== product -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const updateButtons = document.querySelectorAll('.update-pendantproduct');
+    const pendantForm = document.getElementById('pendant');
+    const imageContainer = document.getElementById('imageContainerpendant');
+
+    updateButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const id = this.getAttribute('data-id');
+            const images = safeParseJSON(this.getAttribute('data-image'), []);
+            const productName = this.getAttribute('data-name');
+            const productPrice = this.getAttribute('data-price');
+            const description = this.getAttribute('data-description');
+            const typeofpendant = this.getAttribute('data-typeofpendant');
+            const fakemrp = this.getAttribute('data-fakemrp');
+            const realmrp = this.getAttribute('data-realmrp');
+            const yousave = this.getAttribute('data-yousave');
+            const discount = this.getAttribute('data-discount');
+            const gold = this.getAttribute('data-gold');
+            const silver = this.getAttribute('data-silver');
+            const dimonad = this.getAttribute('data-dimonad');
+            const makingcharge = this.getAttribute('data-makingcharge');
+            const gstpersent = this.getAttribute('data-gstpersent');
+            const gst = this.getAttribute('data-gst');
+            const productheight = this.getAttribute('data-productheight');
+            const productwidth = this.getAttribute('data-productwidth');
+            const productbandwith = this.getAttribute('data-productbandwith');
+            const pendantSizes = safeParseJSON(this.getAttribute('data-pendantsize'), []);
+
+            if (pendantForm) {
+                pendantForm.action = `/pendantupdate/${id}`;
+                pendantForm.querySelector('input[name="productName"]').value = productName;
+                pendantForm.querySelector('input[name="productPrice"]').value = productPrice;
+                pendantForm.querySelector('textarea[name="discription"]').value = description;
+                pendantForm.querySelector('input[name="typeofpendant"]').value = typeofpendant;
+                pendantForm.querySelector('input[name="fakemrp"]').value = fakemrp;
+                pendantForm.querySelector('input[name="realmrp"]').value = realmrp;
+                pendantForm.querySelector('input[name="yousave"]').value = yousave;
+                pendantForm.querySelector('input[name="discount"]').value = discount;
+                pendantForm.querySelector('input[name="gold"]').value = gold;
+                pendantForm.querySelector('input[name="silver"]').value = silver;
+                pendantForm.querySelector('input[name="dimonad"]').value = dimonad;
+                pendantForm.querySelector('input[name="makingcharge"]').value = makingcharge;
+                pendantForm.querySelector('input[name="gstpersent"]').value = gstpersent;
+                pendantForm.querySelector('input[name="gst"]').value = gst;
+                pendantForm.querySelector('input[name="productheight"]').value = productheight;
+                pendantForm.querySelector('input[name="productwidth"]').value = productwidth;
+                pendantForm.querySelector('input[name="productbandwith"]').value = productbandwith;
+
+                // Handle pendant sizes
+                const pendantSizeSelect = pendantForm.querySelector('select[name="pendantsize[]"]');
+                Array.from(pendantSizeSelect.options).forEach(option => {
+                    option.selected = pendantSizes.includes(option.value);
+                });
+
+                // Handle images
+                images.forEach(imageUrl => {
+          if (imageUrl.match(/\.(mp4|webm|ogg)$/i)) {
+            // Create video element
+            const video = document.createElement('video');
+            video.src = imageUrl;
+            video.width = 320; // Set video width
+            video.height = 240; // Set video height
+            video.controls = false; // Hide controls
+            video.autoplay = true; // Autoplay video
+            video.muted = true; // Mute video
+            video.classList.add('video-thumbnail'); // Optional: add any class for styling
+            imageContainer.appendChild(video);
+          } else {
+            // Create image element
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.width = 100; // Set image size
+            img.height = 100; // Set image size
+            img.classList.add('img-thumbnail'); // Optional: add any class for styling
+            imageContainer.appendChild(img);
+          }
+        });
+        };
+        });
+    });
+
+    // Function to safely parse JSON strings
+    function safeParseJSON(jsonString, defaultValue) {
+        try {
+            return JSON.parse(jsonString);
+        } catch (error) {
+            return defaultValue;
+        }
+    }
+});
+
+</script>
+
+
+<!-- //for necklace -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const updateButtons = document.querySelectorAll('.update-necklaceproduct');
+    const necklace = document.getElementById('necklace');
+    const imageContainer = document.getElementById('imageContainerNecklace');
+
+    updateButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const id = this.getAttribute('data-id');
+            const images = safeParseJSON(this.getAttribute('data-image'), []);
+            const productName = this.getAttribute('data-name');
+            const productPrice = this.getAttribute('data-price');
+            const description = this.getAttribute('data-description');
+            const typeofnecklace = this.getAttribute('data-typeofnecklace');
+            const fakemrp = this.getAttribute('data-fakemrp');
+            const realmrp = this.getAttribute('data-realmrp');
+            const yousave = this.getAttribute('data-yousave');
+            const discount = this.getAttribute('data-discount');
+            const gold = this.getAttribute('data-gold');
+            const silver = this.getAttribute('data-silver');
+            const dimonad = this.getAttribute('data-dimonad');
+            const makingcharge = this.getAttribute('data-makingcharge');
+            const gstpersent = this.getAttribute('data-gstpersent');
+            const gst = this.getAttribute('data-gst');
+            const productheight = this.getAttribute('data-productheight');
+            const productwidth = this.getAttribute('data-productwidth');
+            const productbandwith = this.getAttribute('data-productbandwith');
+            const necklaceSizes = safeParseJSON(this.getAttribute('data-necklacesize'), []);
+
+            if (necklace) {
+              necklace.action = `/necklaceupdate/${id}`;
+              necklace.querySelector('input[name="productName"]').value = productName;
+              necklace.querySelector('input[name="productPrice"]').value = productPrice;
+              necklace.querySelector('textarea[name="discription"]').value = description;
+              necklace.querySelector('input[name="typeofnecklace"]').value = typeofnecklace;
+              necklace.querySelector('input[name="fakemrp"]').value = fakemrp;
+              necklace.querySelector('input[name="realmrp"]').value = realmrp;
+              necklace.querySelector('input[name="yousave"]').value = yousave;
+              necklace.querySelector('input[name="discount"]').value = discount;
+              necklace.querySelector('input[name="gold"]').value = gold;
+              necklace.querySelector('input[name="silver"]').value = silver;
+              necklace.querySelector('input[name="dimonad"]').value = dimonad;
+              necklace.querySelector('input[name="makingcharge"]').value = makingcharge;
+              necklace.querySelector('input[name="gstpersent"]').value = gstpersent;
+              necklace.querySelector('input[name="gst"]').value = gst;
+              necklace.querySelector('input[name="productheight"]').value = productheight;
+              necklace.querySelector('input[name="productwidth"]').value = productwidth;
+              necklace.querySelector('input[name="productbandwith"]').value = productbandwith;
+
+                // Handle necklace sizes
+                const necklaceSizeSelect = necklace.querySelector('select[name="necklacesize[]"]');
+                Array.from(necklaceSizeSelect.options).forEach(option => {
+                    option.selected = necklaceSizes.includes(option.value);
+                });
+
+                images.forEach(imageUrl => {
+          if (imageUrl.match(/\.(mp4|webm|ogg)$/i)) {
+            // Create video element
+            const video = document.createElement('video');
+            video.src = imageUrl;
+            video.width = 320; // Set video width
+            video.height = 240; // Set video height
+            video.controls = false; // Hide controls
+            video.autoplay = true; // Autoplay video
+            video.muted = true; // Mute video
+            video.classList.add('video-thumbnail'); // Optional: add any class for styling
+            imageContainer.appendChild(video);
+          } else {
+            // Create image element
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.width = 100; // Set image size
+            img.height = 100; // Set image size
+            img.classList.add('img-thumbnail'); // Optional: add any class for styling
+            imageContainer.appendChild(img);
+          }
+        });
+            }
+        });
+    });
+
+    // Function to safely parse JSON strings
+    function safeParseJSON(jsonString, defaultValue) {
+        try {
+            return JSON.parse(jsonString);
+        } catch (error) {
+            return defaultValue;
+        }
+    }
+});
+
+</script>
+
+<!-- //for earring -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const updateButtons = document.querySelectorAll('.update-earringproduct');
+    const earring = document.getElementById('earring');
+    const imageContainer = document.getElementById('imageContainerearring');
+
+    updateButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const id = this.getAttribute('data-id');
+            const images = safeParseJSON(this.getAttribute('data-image'), []);
+            const productName = this.getAttribute('data-name');
+            const productPrice = this.getAttribute('data-price');
+            const description = this.getAttribute('data-description');
+            const typeofearring = this.getAttribute('data-typeofearring');
+            const fakemrp = this.getAttribute('data-fakemrp');
+            const realmrp = this.getAttribute('data-realmrp');
+            const yousave = this.getAttribute('data-yousave');
+            const discount = this.getAttribute('data-discount');
+            const gold = this.getAttribute('data-gold');
+            const silver = this.getAttribute('data-silver');
+            const dimonad = this.getAttribute('data-dimonad');
+            const makingcharge = this.getAttribute('data-makingcharge');
+            const gstpersent = this.getAttribute('data-gstpersent');
+            const gst = this.getAttribute('data-gst');
+            const productheight = this.getAttribute('data-productheight');
+            const productwidth = this.getAttribute('data-productwidth');
+            const productbandwith = this.getAttribute('data-productbandwith');
+            const earringSizes = safeParseJSON(this.getAttribute('data-earringsize'), []);
+
+            if (earring) {
+              earring.action = `/earringupdate/${id}`;
+              earring.querySelector('input[name="productName"]').value = productName;
+              earring.querySelector('input[name="productPrice"]').value = productPrice;
+              earring.querySelector('textarea[name="discription"]').value = description;
+              earring.querySelector('input[name="typeofearring"]').value = typeofearring;
+              earring.querySelector('input[name="fakemrp"]').value = fakemrp;
+              earring.querySelector('input[name="realmrp"]').value = realmrp;
+              earring.querySelector('input[name="yousave"]').value = yousave;
+              earring.querySelector('input[name="discount"]').value = discount;
+              earring.querySelector('input[name="gold"]').value = gold;
+              earring.querySelector('input[name="silver"]').value = silver;
+              earring.querySelector('input[name="dimonad"]').value = dimonad;
+              earring.querySelector('input[name="makingcharge"]').value = makingcharge;
+              earring.querySelector('input[name="gstpersent"]').value = gstpersent;
+              earring.querySelector('input[name="gst"]').value = gst;
+              earring.querySelector('input[name="productheight"]').value = productheight;
+              earring.querySelector('input[name="productwidth"]').value = productwidth;
+              earring.querySelector('input[name="productbandwith"]').value = productbandwith;
+
+                // Handle necklace sizes
+                const earringSizeSelect = earring.querySelector('select[name="earringsize[]"]');
+                Array.from(earringSizeSelect.options).forEach(option => {
+                    option.selected = earringSizes.includes(option.value);
+                });
+
+                images.forEach(imageUrl => {
+          if (imageUrl.match(/\.(mp4|webm|ogg)$/i)) {
+            // Create video element
+            const video = document.createElement('video');
+            video.src = imageUrl;
+            video.width = 320; // Set video width
+            video.height = 240; // Set video height
+            video.controls = false; // Hide controls
+            video.autoplay = true; // Autoplay video
+            video.muted = true; // Mute video
+            video.classList.add('video-thumbnail'); // Optional: add any class for styling
+            imageContainer.appendChild(video);
+          } else {
+            // Create image element
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.width = 100; // Set image size
+            img.height = 100; // Set image size
+            img.classList.add('img-thumbnail'); // Optional: add any class for styling
+            imageContainer.appendChild(img);
+          }
+        });
+            }
+        });
+    });
+
+    // Function to safely parse JSON strings
+    function safeParseJSON(jsonString, defaultValue) {
+        try {
+            return JSON.parse(jsonString);
+        } catch (error) {
+            return defaultValue;
+        }
+    }
+});
+
+</script>
+
+<script>
+  // Get the search query from the server-rendered variable
+  const searchQuery = "<%= searchquery %>".toLowerCase();
+
+  // Define mapping between section keywords and their respective section IDs
+  const sectionKeywords = {
+    trendyproduct: ["trendy", "product", "jewllery", "new"],
+    ring: ["ring", "rings", "rng", "riing"],
+    blog: ["blog", "articles", "news", "post"],
+    pendant: ["pendant", "pendants", "necklace", "charm"],
+    earring: ["earring", "earrings", "stud", "hoop"],
+    bracelet: ["bracelet", "bracelets", "bra", "brace"],
+    pendant:["pendant","penadnts","pendals","pendal","pandal"]
+    // Add more mappings for other sections as needed
+  };
+
+  // Function to find and scroll to the matched section
+  function navigateToSection(query) {
+    let found = false;
+    // Iterate over section keywords to find a matching section
+    Object.keys(sectionKeywords).forEach((sectionId) => {
+      // Check if any keyword matches the search query
+      sectionKeywords[sectionId].forEach((keyword) => {
+        if (query.includes(keyword)) {
+          const targetSection = document.getElementById(sectionId);
+          if (targetSection) {
+            // Scroll to the matched section
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+
+            // Highlight the section for better visibility
+            targetSection.style.border = "2px solid #ff9800";
+            setTimeout(() => {
+              targetSection.style.border = ""; // Remove the highlight after a short delay
+            }, 3000); // Adjust delay as needed
+
+            found = true;
+          }
+        }
+      });
+    });
+
+    // If no section matches, you could provide feedback or handle it differently
+    if (!found) {
+      console.log("No matching section found for the search query.");
+    }
+  }
+
+  // Call the function with the search query
+  if (searchQuery) {
+    navigateToSection(searchQuery);
+  }
+</script>
+
+<!-- for filter and pagination container -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/v/dt/dt-2.1.6/datatables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.tablepdf').DataTable({
+            order: [[0, 'desc']]
+        });
+    });
+</script>
+
+<!-- for up and Down -->
+<script>
+// Array to define the sections in the desired order
+const sections = ['trendy','blog', 'ring', 'bracelet', 'pendant', 'necklace', 'earrings'];
+let currentIndex = 0;
+
+// Function to scroll to the next section based on the direction (up/down)
+function scrollToSection(direction) {
+  if (direction === 'up') {
+    currentIndex = (currentIndex - 1 + sections.length) % sections.length;
+  } else if (direction === 'down') {
+    currentIndex = (currentIndex + 1) % sections.length;
+  }
+
+  // Scroll to the targeted section smoothly
+  document.getElementById(sections[currentIndex]).scrollIntoView({
+    behavior: 'smooth',
+  });
+}
+
+// Add click event listeners to "Up" and "Down" buttons
+document.getElementById('up-btn').addEventListener('click', (e) => {
+  e.preventDefault(); // Prevent default anchor behavior
+  scrollToSection('up');
+});
+
+document.getElementById('down-btn').addEventListener('click', (e) => {
+  e.preventDefault(); // Prevent default anchor behavior
+  scrollToSection('down');
+});
+
+</script>

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GREEN CRAFT JEWELS | (Green Craft)</title>
+      <link rel="shortcut icon" href="/img/greencraft.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="/css/register.css" />
+    <link rel="stylesheet" href="/css/mirici.css" />
+    <!-- seo for greencraft -->
+    <meta name="description" content="Greencraft is a diamond-based jewelry brand. We believe in natural quality, and our vision is to create memorable moments through our premium jewelry collection." />
+    <meta property="og:title" content="Greencraft Jewels | Greencraft Jewelry | greencraft jewels" />
+    <meta property="og:description" content="Salle Diamond Jewellery specializes in premium, designer diamond jewelry. We own our manufacturing process, ensuring top-quality craftsmanship and exclusive designs for our customers." />
+
+    <meta property="og:type" content="GREEN CRAFT JEWELS" />
+    <meta property="og:url" content="https://www.yourwebsite.com/page-url" />
+    <meta
+      property="og:image"
+      content="https://www.yourwebsite.com/path-to-image.jpg"
+    />
+    <meta property="og:site_name" content="GREEN CRAFT" />
+    <meta property="og:locale" content="en_US" />
+    
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ajax -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- font-family -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playwrite+AT:ital,wght@0,100..400;1,100..400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- //uppernav -->
+    <nav id="uppernav">
+      <div id="email" class="hide-mobile">miricijewels.com@gmail.com</div>
+      <div id="designer">On First Purchase get 20% OFF</div>
+      <div id="currency">
+          <div class="dropdown">
+              <button
+                id="currencybtn"
+                class="dropdown-toggle fs-6"
+                type="button"
+                data-bs-toggle="dropdown"
+              >
+                INR - Indian Rupee
+              </button>
+              <ul class="dropdown-menu dropdown-menu-light">
+                <li><a class="dropdown-item" href="#" onclick="changeCurrency('INR')">INR - Indian Rupee</a></li>
+                <li><a class="dropdown-item" href="#" onclick="changeCurrency('USD')">USD - US Dollar</a></li>
+              </ul>
+            </div>
+      </div>
+    </nav>
+
+    <!-- //lowernav -->
+    <nav class="navbar navbar-expand-lg ">
+      <div class="container-fluid">
+          <!-- Logo -->
+          <a class="navbar-brand" href="#">
+              <img src="/img/greencraft.jpg" alt="logo" id="logo" class="mobile-logo" />
+          </a>
+  
+          <!-- Hamburger Menu Button -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+  
+          <!-- Collapsible Menu -->
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <!-- Jewelry Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="jewelryDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Jewellery
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="jewelryDropdown">
+                        <!-- Rings Dropdown -->
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="/ring">
+                                <img src="/img/ringsicon.png" alt="" height="30" width="30" id="imgicon" /> Ring
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/engagementring">Engagement Ring</a></li>
+                                <li><a class="dropdown-item" href="/eternityring">Eternity Ring</a></li>
+                                <li><a class="dropdown-item" href="/weddingring">Wedding Ring</a></li>
+                                <li><a class="dropdown-item" href="/birthstonering">Birthstone Ring</a></li>
+                            </ul>
+                        </li>
+        
+                        <!-- Bracelets Dropdown -->
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="/bracelets">
+                                <img src="/img/braceleticon.png" alt="" height="30" width="30" id="imgicon" /> Bracelets
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/tennisbracelets">Tennis Bracelet</a></li>
+                                <li><a class="dropdown-item" href="/chainlinkbracelets">Chain Link Bracelet</a></li>
+                                <li><a class="dropdown-item" href="/banglebracelets">Bangle Bracelet</a></li>
+                                <li><a class="dropdown-item" href="/charmbracelets">Charm Bracelet</a></li>
+                            </ul>
+                        </li>
+        
+                        <!-- Pendant Dropdown -->
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="/pandals">
+                                <img src="/img/pandalsicon.png" alt="" height="30" width="30" id="imgicon" /> Pendant
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/dimondpendants">Diamond Pendant</a></li>
+                                <li><a class="dropdown-item" href="/pendantsets">Pendant Set</a></li>
+                            </ul>
+                        </li>
+        
+                        <!-- Necklaces Dropdown -->
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="/necklace">
+                                <img src="/img/necklaceicon.png" alt="" height="30" width="30" id="imgicon" /> Necklace
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/chainnecklace">Chain Necklace</a></li>
+                                <li><a class="dropdown-item" href="/chokernecklace">Choker</a></li>
+                                <li><a class="dropdown-item" href="/tennisnecklace">Tennis Necklace</a></li>
+                            </ul>
+                        </li>
+        
+                        <!-- Earrings Dropdown -->
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="/earrings">
+                                <img src="/img/earringicon.png" alt="" height="30" width="30" id="imgicon" /> Earrings
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/studsearrings">Studs</a></li>
+                                <li><a class="dropdown-item" href="/topsearrings">Tops</a></li>
+                                <li><a class="dropdown-item" href="/dangleearrings">Dangle Earrings</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+        
+                <!-- Other Navigation Links -->
+               
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+        
+                <li class="nav-item d-flex align-items-center">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-4" type="search" placeholder="Search Product..." name="search" value="<%= searchquery %>" />
+                        <button type="submit" style="border: none; background-color: white">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                        <!-- User Account Dropdown -->
+                        <li class="nav-item dropdown ms-4">
+                            <button id="useraccount" class="btn btn-link nav-link" type="button" data-bs-toggle="dropdown">
+                                <i class="fa-regular fa-user"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <%if(session.passport){%>
+                                <li><a class="dropdown-item" href="#loginform" onclick="login()">Sign In</a></li>
+                                <li><a class="dropdown-item" href="#registerform" onclick="register()">Create an account</a></li>
+                                <%}%>
+                                <li><a class="dropdown-item" href="#forgetpasswordform" onclick="forgetpassword()">Forget Password</a></li>
+                            </ul>
+                        </li>
+                    </form>
+                </li>
+            </ul>
+        </div>
+
+      </div>
+  </nav>
+
+    <img
+      src="./img/contactusicon.png"
+      alt="contactus"
+      srcset=""
+      height="70"
+      width="75"
+      class="contact-button"
+      onclick="window.location.href='/contact'"
+    />
+
+    <main>
+      <div
+        id="carouselExampleInterval"
+        class="carousel slide"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <div class="carousel-item active" data-bs-interval="1000">
+            <img
+              src="./img/promise_banner2.webp"
+              class="d-block w-100"
+              alt="..."
+              height="500"
+            />
+          </div>
+          <div class="carousel-item" id="modeldance1" data-bs-interval="2000">
+            <video class="d-block w-100" autoplay muted loop height="500">
+              <source src="./img/bgvide0.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="carousel-item" id="modeldance2" data-bs-interval="2000">
+            <video class="d-block w-100" autoplay muted loop height="500">
+              <source src="./img/bgvideo2.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleInterval"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleInterval"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <div id="type">
+        <h1 id="shopnow">Shop Now</h1>
+        <div class="curly-line"></div>
+        <div id="category">
+          <a href="/ring"><img src="./img/ring.webp" alt="ring" id="ring" /></a>
+          <a href="/necklace"
+            ><img src="./img/necklace.webp" alt="necklace" id="necklace"
+          /></a>
+          <a href="/pandals"
+            ><img src="./img/pandals.webp" alt="pandles" id="pandles"
+          /></a>
+          <a href="/bracelets"
+            ><img src="./img/bracelets.webp" alt="bracelets" id="bracelets"
+          /></a>
+          <a href="/earrings">
+            <img src="./img/earings.webp" alt="earing" id="earing"
+          /></a>
+        </div>
+    </div>
+      
+      <div class="container">
+        <div>
+          <div class="content">
+            <h2>Rings</h2>
+            <span
+              ><a href="/ring" style="text-decoration: none; color: white"
+                >Shop now </a
+              ><i class="fa-solid fa-chevron-right"></i
+            ></span>
+          </div>
+        </div>
+        <div>
+          <div class="content">
+            <h2>Necklaces</h2>
+            <span
+              ><a href="/necklace" style="text-decoration: none; color: white"
+                >Shop now </a
+              ><i class="fa-solid fa-chevron-right"></i
+            ></span>
+          </div>
+        </div>
+        <div>
+          <div class="content">
+            <h2>Padales</h2>
+            <span
+              ><a href="/pandals" style="text-decoration: none; color: white"
+                >Shop now </a
+              ><i class="fa-solid fa-chevron-right"></i
+            ></span>
+          </div>
+        </div>
+        <div>
+          <div class="content">
+            <h2>Bracelets</h2>
+            <span
+              ><a href="/bracelets" style="text-decoration: none; color: white"
+                >Shop now </a
+              ><i class="fa-solid fa-chevron-right"></i
+            ></span>
+          </div>
+        </div>
+        <div>
+          <div class="content">
+            <h2>Earrings</h2>
+            <span
+              ><a href="/earrings" style="text-decoration: none; color: white"
+                >Shop now </a
+              ><i class="fa-solid fa-chevron-right"></i
+            ></span>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="whatweare">
+        <h1
+          style="
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+              'Lucida Sans', Arial, sans-serif;
+          "
+        >
+          Our Story
+        </h1>
+        <p class="goal">Meaningful Jewellery</p>
+        <div class="intro-text">
+          <div class="first-line">
+            Founded in 2022 by Harshil Patel, American jewellery brand By Green
+            craft was created with the intention to inspire and bring positivity
+            to your life
+          </div>
+          <div class="second-line">
+            by celebrating the magic of love, peace, and joy.
+          </div>
+        </div>
+        <div id="Readmore">
+          <a href="/about" style="text-decoration: none; color: black"
+            >Read more</a
+          >
+        </div>
+      </div>
+
+      <div id="twopart">
+        <img src="./img/multiring.jpeg" alt="" id="multiring" />
+
+        <div id="productoverview">
+          <div id="carouselExampleDark" class="carousel carousel-dark slide">
+            <div class="carousel-indicators">
+              <button
+                type="button"
+                data-bs-target="#carouselExampleDark"
+                data-bs-slide-to="0"
+                class="active"
+                aria-current="true"
+                aria-label="Slide 1"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#carouselExampleDark"
+                data-bs-slide-to="1"
+                aria-label="Slide 2"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#carouselExampleDark"
+                data-bs-slide-to="2"
+                aria-label="Slide 3"
+              ></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active" data-bs-interval="10000">
+                <img src="./img/item1.png" class="d-block move" alt="..." />
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Toi et Moi Ring</h5>
+                  <p>
+                    Pear and Round Stone Twist Toi et Moi Ring , You And Me
+                    Forever Ring , Lab diamond Ring For Her.
+                  </p>
+                </div>
+              </div>
+              <div class="carousel-item" data-bs-interval="2000">
+                <img src="./img/itme2.png" class="d-block move" alt="..." />
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>2 CT Round Cut Lab Grown Diamond</h5>
+                  <p>
+                    Engagement Ring, Round Cut Diamond Wedding Ring, 6 Prong
+                    Round Solitaire 14k/18k White Gold Lab Diamond Ring
+                  </p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="./img/itme3.png" class="d-block move" alt="..." />
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>
+                    3.3 TCW Three Stone Oval Diamond Solid Gold Diamond Ring
+                  </h5>
+                  <p>
+                    14k Solid Gold Past Present Future Proposal Ring For Women .
+                  </p>
+                </div>
+              </div>
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleDark"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleDark"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="videojelwery">
+        <video
+          class="d-block"
+          autoplay
+          muted
+          loop
+          style="max-width: 100%; height: 50%"
+        >
+          <source
+            src="./img/videojwelery.mp4"
+            type="video/mp4"
+            id="modelvideo"
+          />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <div id="facility">
+        <div>
+          <img
+            src="./img/gift.svg"
+            alt=""
+            loading="lazy"
+            height="32"
+            width="32"
+            id="gift"
+          />
+          <div class="up">Gift Packaging</div>
+          <div class="down">SIGNATURE Pink Box</div>
+        </div>
+        <div>
+          <img
+            src="./img/free shipping.svg"
+            alt=""
+            loading="lazy"
+            height="32"
+            width="32"
+            id="fast"
+          />
+          <div class="up">Free Express Shipping</div>
+          <div class="down">above 2000INR</div>
+        </div>
+        <div>
+          <img
+            src="./img/freereturn.svg"
+            alt=""
+            loading="lazy"
+            height="32"
+            width="32"
+            id="return"
+          />
+          <div class="up">Easy Returns</div>
+          <div class="down">30 Day Return Policy</div>
+        </div>
+        <div>
+          <img
+            src="./img/coustm.png"
+            alt=""
+            loading="lazy"
+            height="32"
+            width="32"
+            id="coustomize"
+          />
+          <div class="up">customized Designe</div>
+          <div class="down">Professional Suggestions</div>
+        </div>
+      </div>
+        <!-- ======================//trendy product start=============== -->
+      <h1 id="trendy">Trendy Products</h1>
+      <div class="curly-line"></div>
+      <div class="product-card">
+        <% trendys.forEach(function(trendys) { %>
+        <div class="card">
+          <div class="product-image">
+            <div
+              id="carousel<%= trendys._id %>"
+              class="carousel slide"
+              data-bs-touch="false"
+            >
+              <div class="carousel-inner">
+                <% trendys.images.forEach(function(image, index) { %>
+                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                  <% 
+                  // Check if the media is a video based on the file extension
+                  const videoExtensions = ['.mp4', '.avi', '.mov', '.mkv', '.webm'];
+                  const isVideo = videoExtensions.some(ext => image.toLowerCase().endsWith(ext));
+                %>
+                <% if (isVideo) { %>
+                  <!-- Video Tag for Videos -->
+                  <video class="d-block w-100" autoplay muted playsinline loop>
+                    <source src="<%= image %>" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                <% } else { %>
+                  <a href="#"
+                    ><img src="<%= image %>" class="d-block w-100" alt="images" id="outercarousel"
+                  /></a>
+                  <% } %>
+                </div>
+                <% }); %>
+              </div>
+              <button
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#carousel<%= trendys._id %>"
+                data-bs-slide="prev"
+              >
+                <span
+                  class="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#carousel<%= trendys._id %>"
+                data-bs-slide="next"
+              >
+                <span
+                  class="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+          <div class="product-details">
+            <h2 class="product-name"><%= trendys.productName %></h2>
+            <p class="product-description"><%= trendys.discription %></p>
+             <!-- Display Price with Data Attributes for Currency Conversion -->
+        <div class="product-price" id="price-<%= trendys._id %>"data-price="<%= trendys.productPrice %>" data-id="<%= trendys._id %>">&#8377;<%= trendys.productPrice %> <!-- Default to INR -->
+        </div>
+        <% 
+        // Construct product link (assuming a pattern for the URL)
+        const productLink = `http://localhost:3000`;
+
+        // Ensure the image URL is fully qualified
+        const imageUrl = `${trendys.images[0]}`;
+
+        // Construct WhatsApp message
+        const message = `Hello, I'm interested in the product:\n\nName: ${trendys.productName}\nPrice: ${trendys.productPrice}\nLink: ${productLink}\nImage: ${imageUrl}`;
+        const phoneNumber = '+1412-886-4544';
+        const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      %>
+      <a href="<%= whatsappURL %>" target="_blank">
+        <button class="add-to-cart">
+          WhatsApp
+          <img src="./img/whatsapp.png" alt="" height="30" width="30" />
+        </button>
+      </a>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    </main>
+   
+    <!-- //footer -->
+    <%- include('layout/footer')%>
+
+    <!-- //user-register code -->
+
+    <%- include('layout/register')%>
+
+
+    <!-- user login  -->
+    <%- include('layout/login')%>
+
+    <!-- //forgetpassowrd -->
+    <%- include('layout/forget')%>
+
+  </body>
+</html>
+<!-- // upperscroll hide -->
+ <!-- for login, register and forgetpassword -->
+<script src="/js/script.js"></script>
+<!-- for login, register and forgetpassword --><script src="path/to/showFormBasedOnQueryParam.js"></script>
+
+<!-- for currency converted --><script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

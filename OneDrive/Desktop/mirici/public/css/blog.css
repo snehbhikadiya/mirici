@@ -1,0 +1,263 @@
+*{
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+}
+#blogimg {
+    position: relative;
+    display: inline-block;
+    width: 100%; /* Ensure the container expands to full width */
+}
+
+#blogimg img {
+    display: block;
+    width: 100%; /* Ensure the image fills its container */
+    height: auto; /* Maintain aspect ratio */
+}
+
+#text-overlay {
+    position: absolute;
+    top: 50%; /* Adjust vertical position as needed */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center the overlay */
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    color: #fff5ea;
+    font-size: 3vw; /* Responsive font size based on viewport width */
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+#up {
+    /* font-size: 30px; */
+    margin-bottom: 10px; /* Spacing between lines */
+}
+
+
+
+/* //blog */
+
+.blog {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin: 50px;
+    justify-content: center;
+}
+
+.blogbox {
+    margin-bottom: 20px; /* Add spacing between blog boxes */
+    box-sizing: border-box; /* Include padding and border in total width */
+    padding: 10px; /* Add padding inside each blog box */
+}
+
+#blogdata{  
+    width: 304px;
+    overflow: hidden;
+    margin: 50px;
+    position: relative; /* Ensure relative positioning for child elements */
+    display: flex;
+    flex-direction: column;
+}
+#blogimg1 {
+    transition: transform 0.3s ease;
+    object-fit: cover;
+    width: 100%;
+    max-width: 550px; /* Limit maximum width of the image */
+    height: auto; /* Allow height to adjust proportionally */
+}
+
+#blogdata:hover #blogimg1 {
+    transform: scale(1.1); /* Increase image size on hover */
+}
+
+.bloghading {
+    margin-top: 20px;
+    text-align: center;
+    font-family: "Futura", sans-serif;
+}
+
+.blogcontent {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+}
+
+#readmoreblog {
+    position: relative;
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    padding-bottom: 3px;
+}
+
+#readmoreblog::after {
+    content: " ";
+    position: absolute;
+    width: 25%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: black;
+    transform: scaleX(1);
+    transform-origin: bottom left;
+    transition: transform 0.5s ease;
+}
+
+#readmoreblog:hover::after {
+    transform: scaleX(0);
+}
+
+/* Popup styles remain unchanged */
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow: auto;
+}
+
+.popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    max-width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #888 transparent;
+}
+
+.popup-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.popup-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.popup-content::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+.popup-content::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.popup-content #closePopup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ddd;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.content {
+    display: flex;
+}
+
+#metal {
+    display: flex;
+}
+#waterproof,
+#metal {
+    margin-top: 20px; /* Add spacing between sections within popup */
+}
+
+#moreinfoimg {
+    width: 100%; /* Ensure images fill their containers */
+    max-width: 300px; /* Limit maximum width of images */
+    height: auto; /* Allow height to adjust proportionally */
+    margin-bottom: 10px; /* Add spacing between images */
+    object-fit: cover; /* Maintain aspect ratio */
+    grid-gap: 10px; /* Add spacing between grid items */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid */
+    
+}
+
+@media (max-width: 768px) {
+    .popup-content {
+        width: 95%; /* Adjust width for smaller screens */
+        max-width: 100%;
+    }
+    #moreinfoimg{
+        width: 50%; /* Adjust width for smaller screens */
+        height: 25%;
+        max-width: 100%;
+    }
+    .moreinfoimg2{
+        display: none;
+        width: 50%; /* Adjust width for smaller screens */
+        height: 25%;
+        max-width: 100%;
+        justify-content: center;
+    }
+
+    .content,
+    #waterproof,
+    #metal {
+        margin-top: 15px; /* Reduce margin between sections on smaller screens */
+    }
+}
+
+
+
+    /* for animation*/
+
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    .slide-in-right {
+        opacity: 0; /* Start hidden */
+        transform: translateX(100%); /* Start off-screen */
+    }
+    
+    .slide-in-right.animate {
+        animation: slideInRight 1s forwards; /* Apply animation when class is added */
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

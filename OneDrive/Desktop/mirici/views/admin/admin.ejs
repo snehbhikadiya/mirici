@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google tag (gtag.js) -->
+
+    <!-- Boxicons -->
+    <link
+      href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <!-- My CSS -->
+    <title>admin</title>
+    <link rel="stylesheet" href="/css/admin.css"/>
+    <link
+      rel="shortcut icon"
+      href="img/icons8-administrator-male-100.png"
+      type="image/x-icon"
+    />
+
+    <!-- Socket i.o -->
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <style>
+    .swal2-popup {
+      background-color: rgb(219, 123, 123);
+    }
+    .swal2-cancel{
+      background-color: rgb(67, 144, 211);
+    }
+    .swal2-confirm {
+      background-color: rgb(206, 206, 95);
+    }
+  </style>
+
+  <body id="refresh">
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+      <a href="#" class="brand">
+        <i class="bx bxs-smile"></i>
+        <span class="text">GREEN CRAFT</span>
+      </a>
+      <ul class="side-menu top">
+        <li class="active">
+          <a href="/admin">
+            &nbsp;&nbsp;<img
+              src="/img/admin/dashboard.png"
+              height="30px"
+              width="30px"
+            />
+            &nbsp;&nbsp;<span class="text">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="/addproduct">
+            &nbsp;&nbsp;<img
+              src="/img/admin/products.png"
+              height="30px"
+              width="30px"
+            />
+            &nbsp;&nbsp;<span class="text"> My Product</span>
+          </a>
+        </li>
+        <li>
+          <a href="/myuser">
+            &nbsp;&nbsp;<img src="/img/admin/user.png" height="30px" width="30px" />
+            &nbsp;&nbsp;<span class="text">My User</span>
+          </a>
+        </li>
+        <li>
+          <div style="cursor: pointer; margin-left: 6px;">
+            <button style="border:none; outline: none; background:none;" onclick="clk()">
+            <a href="#" style="cursor: pointer;">
+                <img src="/img/admin/switch.png" height="30px" width="30px" />
+                  &nbsp;&nbsp;<span style="font-size: 16px; color: var(--dark);">&nbsp;Logout</span>
+                </button>
+            </a>
+        </div>
+        
+        </li>
+      </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+    <!-- CONTENT -->
+    <section id="content">
+      <!-- NAVBAR -->
+      <nav>
+        <i class="bx bx-menu"></i>
+        <a href="#" class="nav-link">Categories</a>
+        <form action="#">
+          <div class="form-input">
+            <input type="search" placeholder="Search..." />
+            <button type="submit" class="search-btn">
+              <i class="bx bx-search"></i>
+            </button>
+          </div>
+        </form>
+        <input type="checkbox" id="switch-mode" hidden />
+        <label for="switch-mode" class="switch-mode"></label>
+        <a href="#" class="profile">
+          <img src="/img/Mirici_Jewels_Logo[1].jpg" />
+        </a>
+      </nav>
+      <!-- NAVBAR -->
+
+      <!-- MAIN -->
+      <main>
+        <div class="head-title">
+          <div class="left">
+            <h1>Dashboard</h1>
+            <ul class="breadcrumb">
+              <li>
+                <a href="#">Dashboard</a>
+              </li>
+              <li><i class="bx bx-chevron-right"></i></li>
+              <li>
+                <a class="active" href="/">Home(GREEN CRAFT)</a>
+              </li>
+            </ul>
+          </div>
+          <button class="btn-download" type="button" id="btnpdf" value="export">
+            <i class="bx bxs-cloud-download"></i>
+            <span class="text">Download PDF</span>
+          </button>
+        </div>
+
+        <ul class="box-info">
+          <li>
+            <i class="bx bxs-calendar-check"></i>
+            <span class="text white-text">
+              <!-- Added class "white-text" -->
+              <h3>0</h3>
+              <p>New Order</p>
+            </span>
+          </li>
+          <li>
+            <i class="bx bxs-group"></i>
+            <span class="text white-text">
+              <!-- Added class "white-text" -->
+              <span>
+                <span style="font-size: 25px; font-weight: bold">+ </span>
+                <span class="counter" style="font-size: 25px; font-weight: bold"
+                  >0</span
+                >
+              </span>
+              <p>Visitors</p>
+            </span>
+          </li>
+          <li>
+            <i class="bx bxs-dollar-circle"></i>
+            <span class="text white-text">
+              <!-- Added class "white-text" -->
+              <span>
+                <span style="font-size: 25px; font-weight: bold">&#8377;</span>
+                <span class="counter" style="font-size: 25px; font-weight: bold"
+                  >0</span
+                >
+              </span>
+              <p>Total Sales</p>
+            </span>
+          </li>
+        </ul>
+
+     
+      </main>
+      <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+
+    <script>
+      const allSideMenu = document.querySelectorAll(
+        "#sidebar .side-menu.top li a"
+      );
+      const whiteTextElements = document.querySelectorAll(".white-text"); // Select elements with class "white-text"
+
+      allSideMenu.forEach((item) => {
+        const li = item.parentElement;
+
+        item.addEventListener("click", function () {
+          allSideMenu.forEach((i) => {
+            i.parentElement.classList.remove("active");
+          });
+          li.classList.add("active");
+        });
+      });
+
+      // TOGGLE SIDEBAR
+      const menuBar = document.querySelector("#content nav .bx.bx-menu");
+      const sidebar = document.getElementById("sidebar");
+
+      menuBar.addEventListener("click", function () {
+        sidebar.classList.toggle("hide");
+      });
+
+      const searchButton = document.querySelector(
+        "#content nav form .form-input button"
+      );
+      const searchButtonIcon = document.querySelector(
+        "#content nav form .form-input button .bx"
+      );
+      const searchForm = document.querySelector("#content nav form");
+
+      searchButton.addEventListener("click", function (e) {
+        if (window.innerWidth < 576) {
+          e.preventDefault();
+          searchForm.classList.toggle("show");
+          if (searchForm.classList.contains("show")) {
+            searchButtonIcon.classList.replace("bx-search", "bx-x");
+          } else {
+            searchButtonIcon.classList.replace("bx-x", "bx-search");
+          }
+        }
+      });
+
+      if (window.innerWidth < 768) {
+        sidebar.classList.add("hide");
+      } else if (window.innerWidth > 576) {
+        searchButtonIcon.classList.replace("bx-x", "bx-search");
+        searchForm.classList.remove("show");
+      }
+
+      window.addEventListener("resize", function () {
+        if (this.innerWidth > 576) {
+          searchButtonIcon.classList.replace("bx-x", "bx-search");
+          searchForm.classList.remove("show");
+        }
+      });
+
+      const switchMode = document.getElementById("switch-mode");
+
+      switchMode.addEventListener("change", function () {
+        if (this.checked) {
+          document.body.classList.add("dark");
+          whiteTextElements.forEach((element) => {
+            element.classList.add("white-text-dark"); // Add class "white-text-dark" for white text in dark mode
+          });
+        } else {
+          document.body.classList.remove("dark");
+          whiteTextElements.forEach((element) => {
+            element.classList.remove("white-text-dark"); // Remove class "white-text-dark" for white text in light mode
+          });
+        }
+      });
+    </script>
+  </body>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+    integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"
+    integrity="sha512-ZKNVEa7gi0Dz4Rq9jXcySgcPiK+5f01CqW+ZoKLLKr9VMXuCsw3RjWiv8ZpIOa0hxO79np7Ec8DDWALM0bDOaQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"
+    integrity="sha512-d8F1J2kyiRowBB/8/pAWsqUl0wSEOkG5KATkVV4slfblq9VRQ6MyDZVxWl2tWd+mPhuCbpTB4M7uU/x9FlgQ9Q=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
+  <script>
+    $(".counter").counterUp({
+      delay: 10,
+      time: 3000,
+    });
+  </script>
+  <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"
+  ></script>
+  <script type="text/javascript">
+    var button = document.getElementById("btnpdf");
+    var makepdf = document.getElementById("tablepdf");
+
+    button.addEventListener("click", function () {
+      var mywindow = window.open("", "PRINT", "height=400,width=600");
+
+      mywindow.document.write(makepdf.innerHTML);
+
+      mywindow.document.close();
+      mywindow.focus();
+
+      mywindow.print();
+      mywindow.close();
+
+      return true;
+    });
+  </script>
+</html>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+  function clk() {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    });
+
+    swalWithBootstrapButtons.fire({
+        title: 'logout ?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, logout!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch('/logout', { method: 'POST' }).then(response => {
+                return response.json();
+            }).then(response => {
+                if (response.success) {
+                    swalWithBootstrapButtons.fire(
+                        'Logged out!',
+                        'You have been successfully logged out.',
+                        'success'
+                    ).then(() => {
+                        window.location.href = '/'; // Redirect to homepage after logout
+                    });
+                } else {
+                    swalWithBootstrapButtons.fire(
+                        'Error!',
+                        'There was a problem logging you out.',
+                        'error'
+                    );
+                }
+            });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'You are still logged in.',
+                'error'
+            );
+        }
+    });
+}
+</script>
